@@ -1,9 +1,10 @@
 import Snap from "snapsvg-cjs";
 
-import conllup from "conllup";
-const { sentenceConllToJson, sentenceJsonToConll } = conllup;
+// import conllup from "../../../../conllup-js";;
+// const { sentenceConllToJson, sentenceJsonToConll } = conllup;
 
-import { MetaJson, TreeJson, TokenJson } from "conllup/lib/conll";
+// import { MetaJson, TreeJson, TokenJson, sentenceJsonToConll, sentenceConllToJson } from "conllup-js/lib/conll";;
+import { MetaJson, TreeJson, TokenJson, sentenceJsonToConll, sentenceConllToJson } from "@/localConllup/conll";;
 
 import { EventDispatcher } from "./EventDispatcher";
 import { ReactiveSentence } from "./ReactiveSentence";
@@ -45,7 +46,7 @@ export class SentenceSVG extends EventDispatcher {
   treeJson: TreeJson;
   metaJson: MetaJson;
   teacherTreeJson: TreeJson = {};
-  shownFeatures: string[] = ["FORM"];
+  shownFeatures: string[] = ["FORM", "UPOS"];
   // matchnodes: Array<string>;
   // matchedges: string[];
   tokenSVGs: { [key: number]: TokenSVG } = {};
@@ -131,7 +132,6 @@ export class SentenceSVG extends EventDispatcher {
   }
 
   public update(reactiveSentence: ReactiveSentence): void {
-    console.log("KK reactiveSentence", reactiveSentence);
     this.treeJson = reactiveSentence.state.treeJson;
     this.metaJson = reactiveSentence.state.metaJson;
     this.tokenSVGs = {};

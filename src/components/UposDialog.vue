@@ -29,7 +29,6 @@ export default {
   },
   methods: {
     onValidate() {
-      console.log("KK upos validate")
       let newUpos = this.tagValue;
       if (newUpos === "") {
         newUpos = "X";

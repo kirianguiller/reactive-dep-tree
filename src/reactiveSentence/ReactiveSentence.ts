@@ -1,8 +1,9 @@
 // import conllup from '../../../conllup-js/lib/index';
-import conllup from "conllup";
+import conllup from "@/localConllup";
 const { emptySentenceJson } = conllup;
 
-import { SentenceJson, TreeJson, TokenJson } from "conllup/lib/conll";
+// import { SentenceJson, TreeJson, TokenJson } from "conllup/lib/conll";
+import { SentenceJson, TreeJson, TokenJson } from "@/localConllup/conll";
 import { IOriginator, IMemento, ICaretaker } from "./MementoPattern";
 import { ISubject, IObserver } from "./ObserverPattern";
 
@@ -158,7 +159,6 @@ export class SentenceCaretaker implements ICaretaker {
   public backup(): void {
     console.log("\nCaretaker: Saving Originator's state...");
     this.mementos.push(this.originator.save());
-    console.log("KK mementos (after saving)", this.mementos);
   }
 
   public undo(): void {
@@ -170,7 +170,6 @@ export class SentenceCaretaker implements ICaretaker {
       console.log(`Caretaker: Restoring state to: ${memento.getName()}`);
       this.originator.restore(memento);
     }
-    console.log("KK mementos (after undoing)", this.mementos);
   }
 
   public showHistory(): void {

@@ -1,20 +1,30 @@
 <template>
   <div class="component-wrapper">
     <div class="meta_container">
-      <SettingsDropdown class="meta_dropdown" :sentenceBus="sentenceBus" :sentenceCaretaker="sentenceCaretaker" />
+      <SettingsDropdown
+        class="meta_dropdown"
+        :sentenceBus="sentenceBus"
+        :sentenceCaretaker="sentenceCaretaker"
+      />
       <span class="meta__text">{{ sentenceText }}</span>
     </div>
     <svg ref="svgWrapper" class="svg-tree" xmlns="http://www.w3.org/2000/svg" />
     <DeprelDialog :sentenceBus="sentenceBus" />
     <UposDialog :sentenceBus="sentenceBus" />
-    <ShowConll :reactiveSentence="reactiveSentence" :sentenceBus="sentenceBus" />
+    <ShowConll
+      :reactiveSentence="reactiveSentence"
+      :sentenceBus="sentenceBus"
+    />
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 
-import { ReactiveSentence, SentenceCaretaker } from "./reactiveSentence/ReactiveSentence.ts";
+import {
+  ReactiveSentence,
+  SentenceCaretaker,
+} from "./reactiveSentence/ReactiveSentence.ts";
 import {
   SentenceSVG,
   SentenceSVGOptions,
@@ -27,7 +37,7 @@ import ShowConll from "./components/ShowConll.vue";
 
 export default {
   components: { DeprelDialog, UposDialog, SettingsDropdown, ShowConll },
-  props: ["conll", "interactive"],
+  props: ["conll", "interactive", "shown-features"],
   data() {
     return {
       reactiveSentence: new ReactiveSentence(),
@@ -43,9 +53,15 @@ export default {
     const svgWrapper = this.$refs.svgWrapper;
     // add the component to the list of reactiveSentence observers
     this.reactiveSentence.attach(this);
-    this.sentenceSVG = new SentenceSVG(svgWrapper, this.reactiveSentence, {
-      interactive: this.interactive,
-    });
+
+    const sentenceSVGOptions = defaultSentenceSVGOptions()
+    if (this.shownFeatures) {
+      sentenceSVGOptions.shownFeatures = this.shownFeatures.split(",")
+
+    }
+    sentenceSVGOptions.interactive = this.interactive
+
+    this.sentenceSVG = new SentenceSVG(svgWrapper, this.reactiveSentence, sentenceSVGOptions);
     this.reactiveSentence.fromSentenceConll(this.conll);
 
     this.sentenceCaretaker = new SentenceCaretaker(this.reactiveSentence);
@@ -85,7 +101,7 @@ export default {
       }
     });
     this.sentenceBus.$on("update:token", (token) => {
-      this.sentenceCaretaker.backup()
+      this.sentenceCaretaker.backup();
       this.reactiveSentence.updateToken(token);
     });
   },
@@ -94,11 +110,7 @@ export default {
       console.log(e);
     },
     update(reactiveSentence) {
-      console.log("KK update", reactiveSentence);
       this.sentenceText = reactiveSentence.state.metaJson.text;
-    },
-    openDropdown() {
-      console.log("KK");
     },
   },
 };
@@ -118,7 +130,7 @@ export default {
 
 .meta_container {
   margin-bottom: 0.6em;
-  border-bottom :1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
   padding: 0.5em 0 0.17em 0;
 }
 
@@ -126,7 +138,8 @@ export default {
   padding: 0 20px;
 }
 
-.meta_dropdown, .meta_text {
+.meta_dropdown,
+.meta_text {
   display: inline-block;
   vertical-align: middle;
 }

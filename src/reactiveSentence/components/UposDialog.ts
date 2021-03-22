@@ -10,7 +10,6 @@
 //     this.parent?.appendChild(this)
 //   }
 //   // connectedCallback() {
-//   //   console.log("KK child uposdialog is connected")
 //   // }
 // }
 

@@ -1,7 +1,6 @@
 <template>
     <div v-if="dialog">
-      <p class="conll-text">
-        {{sentenceConll}}
+      <p class="conll-text">{{sentenceConll}}
       </p>
     </div>
 </template>

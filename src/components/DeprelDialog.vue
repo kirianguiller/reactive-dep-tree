@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     onValidate() {
-      console.log("KK deprel validate")
       let newDeprel = this.tagValue;
       if (newDeprel === "") {
         newDeprel = "X";
