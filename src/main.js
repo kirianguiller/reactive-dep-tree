@@ -1,5 +1,7 @@
 import Vue from "vue";
 import vueCustomElement from "vue-custom-element";
+import Vuex from "vuex";
+Vue.use(Vuex);
 
 Vue.config.productionTip = false;
 
@@ -25,5 +27,5 @@ Vue.customElement("reactive-dep-tree", ReactiveDepTree, {
       root.shadowRoot = document.head;
     }
     return root;
-  }
+  },
 });

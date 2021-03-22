@@ -1,0 +1,22 @@
+{
+  test: /\.vue$/,
+  use: [
+    {
+          loader: 'vue-loader',
+          options: {
+            shadowMode: true
+      }
+    }
+  ]
+},
+{
+  test: /\.scss$/, //as example I used scss
+  use: [
+    {
+          loader: 'vue-style-loader',
+          options: {
+              shadowMode: true
+      }
+    }
+  ]
+}

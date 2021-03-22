@@ -11,7 +11,18 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <p>its outside of the shadow dom !</p>
+    <reactive-dep-tree conll="# text = 事件
+      1	事	_	NOUN	_	_	0	root	_	_
+      2	件	_	NOUN	_	_	1	root	_	_
+      3	件	_	NOUN	_	_	2	deprel	_	_
+    "></reactive-dep-tree>
+    <reactive-dep-tree interactive="true" conll="# text = 事件
+    1	事	_	NOUN	_	_	0	root	_	_
+    2	件	_	NOUN	_	_	1	root	_	_
+    3	件	_	NOUN	_	_	2	deprel	_	_
+  "></reactive-dep-tree>
+  <!-- <reactive-dep-tree conll=""></reactive-dep-tree> -->
     <!-- built files will be auto injected -->
   </body>
 </html>

@@ -5,11 +5,19 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "buildall": "vue-cli-service build --target lib --name reactive-dep-tree src/main.js --inline-vue"
   },
   "dependencies": {
+    "@innologica/vue-dropdown-menu": "^0.1.4",
+    "@types/snapsvg": "^0.5.0",
+    "conllup": "^1.0.7",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "snapsvg": "^0.5.1",
+    "snapsvg-cjs": "0.0.6",
+    "vue": "^2.6.11",
+    "vue-custom-element": "^3.3.0",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",
