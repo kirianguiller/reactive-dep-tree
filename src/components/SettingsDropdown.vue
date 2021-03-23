@@ -3,7 +3,6 @@
     v-model="show"
     :right="right"
     :hover="hover"
-    :interactive="interactive"
   >
     <svg
       class="dropdown__extern"
@@ -55,8 +54,10 @@
       <span class="dropdown__item" @click="toggleConll">{{
         conllShowed ? "Hide Conll" : "Show Conll"
       }}</span>
-      <span class="dropdown__item" @click="undo">Undo</span>
-      <span class="dropdown__item">Redo</span>
+      <template v-if="interactive">
+        <span class="dropdown__item" @click="undo">Undo</span>
+        <span class="dropdown__item">Redo</span>
+      </template>
     </div>
   </dropdown-menu>
 </template>
@@ -66,12 +67,11 @@ import DropdownMenu from "@innologica/vue-dropdown-menu";
 
 export default {
   components: { DropdownMenu },
-  props: ["sentenceBus", "sentenceCaretaker"],
+  props: ["sentenceBus", "sentenceCaretaker", "interactive"],
   data() {
     return {
       show: false,
       hover: true,
-      interactive: false,
       right: false,
       conllShowed: false,
     };
@@ -89,11 +89,18 @@ export default {
 </script>
 
 <style scoped>
+.dropdown__extern:hover {
+  background-color: rgb(230, 230, 230);
+  border-radius: 10px;
+  cursor: pointer;
+}
 .dropdown__container {
   position: absolute;
   display: flex;
   flex-direction: column;
   background-color: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 .dropdown__item {

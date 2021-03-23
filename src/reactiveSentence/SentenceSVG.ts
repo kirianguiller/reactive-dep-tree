@@ -14,7 +14,7 @@ const SVG_CONFIG = {
   startTextY: 10,
   textgraphdistance: 10,
   dragclickthreshold: 400, //ms
-  depLevelHeight: 45,
+  depLevelHeight: 60,
   arrowheadsize: 5,
   gapX: 18, // TODO set it properly elsewhere SVG_CONFIG
   sizeFontY: 18, // TODO
@@ -273,7 +273,7 @@ export class SentenceSVG extends EventDispatcher {
       );
       this.totalHeight = Math.max(this.totalHeight, tokenSVGHeight);
     }
-    this.snapSentence.attr({ width: this.totalWidth + 50 });
+    this.snapSentence.attr({ width: this.totalWidth + 15 });
     this.snapSentence.attr({ height: this.totalHeight || 1000 }); // 1000 was there in case the SVG pop up after the div, so it give a heigth
 
   }
