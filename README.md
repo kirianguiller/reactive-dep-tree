@@ -33,7 +33,7 @@ You should see the corresponding tree appearing on your website :
 
 <img src="docs/I_am_eating_a_pineapple.png"
      alt="Markdown Monster icon"
-     style="background-color: white; margin-right: 10px;" />
+      />
 
 ## Parameters
 
