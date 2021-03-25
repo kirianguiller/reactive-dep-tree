@@ -11,7 +11,7 @@ Reactive-dep-tree is an html component made in Vuejs that allow to easily show i
 Add the link to the CDN library in the head of any HTML file
 
 ```html
-<script src="path/to/CDN/reactive-dep-tree/lib/index.js"></script>
+<script src="https://unpkg.com/reactive-dep-tree@0.2.0/dist/reactive-dep-tree.umd.js" async deferred></script>
 ```
 
 ### 2 - Create a <reactive-dep-tree> html component
