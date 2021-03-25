@@ -1,12 +1,21 @@
 {
-  "name": "reactive-dep-tree-vue2",
-  "version": "0.1.0",
-  "private": true,
+  "name": "reactive-dep-tree",
+  "version": "0.1.1",
+  "main": "dist/reactive-dep-tree.common.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "buil d": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "buildall": "vue-cli-service build --target lib --name reactive-dep-tree src/main.js --inline-vue"
+    "test": "",
+    "buildall": "vue-cli-service build --target lib --name reactive-dep-tree src/main.js --inline-vue",
+    "format": "prettier --write \"src/*.ts\"",
+    "prepare": "npm run buildall",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "@innologica/vue-dropdown-menu": "^0.1.4",
@@ -16,8 +25,7 @@
     "snapsvg": "^0.5.1",
     "snapsvg-cjs": "0.0.6",
     "vue": "^2.6.11",
-    "vue-custom-element": "^3.3.0",
-    "vuex": "^3.6.2"
+    "vue-custom-element": "^3.3.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",

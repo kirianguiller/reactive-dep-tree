@@ -127,7 +127,6 @@ export default {
 .component-wrapper {
   padding-left: 20px;
   width: fit-content;
-  max-width: 100%;
 }
 
 .svg-tree {
