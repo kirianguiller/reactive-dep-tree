@@ -29,12 +29,11 @@ Add the reactive-dep-tree component with the wanted parameters
 ></reactive-dep-tree>
 ```
 
-You should see the corresponding tree appearing on your website
-![image info](./docs/I_am_eating_a_pineapple.png)
+You should see the corresponding tree appearing on your website :
 
 <img src="docs/I_am_eating_a_pineapple.png"
      alt="Markdown Monster icon"
-     style="float: left; margin-right: 10px;" />
+     style="background-color: white; margin-right: 10px;" />
 
 ## Parameters
 

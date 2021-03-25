@@ -118,9 +118,9 @@ export default {
         link.href = imgData;
         link.download = this.reactiveSentence.getUndescoredText() + ".png";
         link.click();
+        document.body.removeChild(svgImage);
       };
       svgImage.src = url;
-      document.body.removeChild(svgImage);
     },
     exportSVG() {
       const blob = this.getSVGblob();
