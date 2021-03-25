@@ -26,7 +26,7 @@ Vue.customElement("reactive-dep-tree", ReactiveDepTree, {
       root.shadowRoot = document.head;
     }
     return root;
-  },
+  }
 });
 
 // Register your component
@@ -42,5 +42,5 @@ Vue.customElement("minimal-dep-tree", MinimalDepTree, {
       root.shadowRoot = document.head;
     }
     return root;
-  },
+  }
 });

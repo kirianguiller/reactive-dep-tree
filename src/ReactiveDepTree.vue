@@ -26,12 +26,11 @@ import Vue from "vue";
 
 import {
   ReactiveSentence,
-  SentenceCaretaker,
+  SentenceCaretaker
 } from "./reactiveSentence/ReactiveSentence.ts";
 import {
   SentenceSVG,
-  SentenceSVGOptions,
-  defaultSentenceSVGOptions,
+  defaultSentenceSVGOptions
 } from "./reactiveSentence/SentenceSVG";
 import DeprelDialog from "./components/DeprelDialog.vue";
 import UposDialog from "./components/UposDialog.vue";
@@ -49,7 +48,7 @@ export default {
       sentenceCaretaker: null,
       sentenceText: "",
       show: false,
-      hover: true,
+      hover: true
     };
   },
   mounted() {
@@ -72,22 +71,22 @@ export default {
 
     this.sentenceCaretaker = new SentenceCaretaker(this.reactiveSentence);
 
-    this.sentenceSVG.addEventListener("svg-click", (e) => {
+    this.sentenceSVG.addEventListener("svg-click", e => {
       this.sentenceBus.$emit("reset:allDialog");
       const targetLabel = e.detail.targetLabel;
       const tokenId = e.detail.clicked;
       if (targetLabel === "UPOS") {
         this.sentenceBus.$emit("open:uposDialog", {
-          ID: tokenId,
+          ID: tokenId
         });
       } else if (targetLabel === "DEPREL") {
         this.sentenceBus.$emit("open:deprelDialog", {
-          ID: tokenId,
+          ID: tokenId
         });
       }
       // this.svgClick(e);
     });
-    this.sentenceSVG.addEventListener("svg-drop", (e) => {
+    this.sentenceSVG.addEventListener("svg-drop", e => {
       this.sentenceBus.$emit("reset:allDialog");
       let tokenId;
       let headId;
@@ -104,11 +103,11 @@ export default {
       if (tokenId >= 0 && headId >= 0) {
         this.sentenceBus.$emit("open:deprelDialog", {
           ID: tokenId,
-          HEAD: headId,
+          HEAD: headId
         });
       }
     });
-    this.sentenceBus.$on("update:token", (token) => {
+    this.sentenceBus.$on("update:token", token => {
       this.sentenceCaretaker.backup();
       this.reactiveSentence.updateToken(token);
     });
@@ -116,11 +115,11 @@ export default {
   methods: {
     update(reactiveSentence) {
       this.sentenceText = reactiveSentence.state.metaJson.text;
-    },
-  },
+    }
+  }
 };
 </script>
-<style >
+<style>
 * {
   box-sizing: border-box;
 }
@@ -395,7 +394,8 @@ export default {
   fill: red;
 }
 
-.FEATS, .MISC {
+.FEATS,
+.MISC {
   font-size: 10px;
   fill: #6d346d;
 }

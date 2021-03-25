@@ -5,14 +5,10 @@
 </template>
 
 <script>
-import Vue from "vue";
-
-import {
-  ReactiveSentence,
-} from "./reactiveSentence/ReactiveSentence.ts";
+import { ReactiveSentence } from "./reactiveSentence/ReactiveSentence.ts";
 import {
   SentenceSVG,
-  defaultSentenceSVGOptions,
+  defaultSentenceSVGOptions
 } from "./reactiveSentence/SentenceSVG";
 
 export default {
@@ -21,27 +17,29 @@ export default {
     return {
       reactiveSentence: new ReactiveSentence(),
       sentenceSVG: null,
-      sentenceText: "",
+      sentenceText: ""
     };
   },
   mounted() {
     const svgWrapper = this.$refs.svgWrapper;
     // add the component to the list of reactiveSentence observers
 
-    const sentenceSVGOptions = defaultSentenceSVGOptions()
+    const sentenceSVGOptions = defaultSentenceSVGOptions();
     if (this.shownFeatures) {
-      sentenceSVGOptions.shownFeatures = this.shownFeatures.split(",")
-
+      sentenceSVGOptions.shownFeatures = this.shownFeatures.split(",");
     }
-    sentenceSVGOptions.interactive = false
+    sentenceSVGOptions.interactive = false;
 
-    this.sentenceSVG = new SentenceSVG(svgWrapper, this.reactiveSentence, sentenceSVGOptions);
+    this.sentenceSVG = new SentenceSVG(
+      svgWrapper,
+      this.reactiveSentence,
+      sentenceSVGOptions
+    );
     this.reactiveSentence.fromSentenceConll(this.conll);
-
-  },
+  }
 };
 </script>
-<style >
+<style>
 * {
   box-sizing: border-box;
 }

@@ -18,11 +18,11 @@ export default {
     return {
       dialog: false,
       tagValue: "",
-      token: {},
+      token: {}
     };
   },
   mounted() {
-    this.sentenceBus.$on("open:deprelDialog", (token) => {
+    this.sentenceBus.$on("open:deprelDialog", token => {
       this.dialog = true;
       this.token = token;
       this.focusInput();
@@ -47,10 +47,9 @@ export default {
       setTimeout(() => {
         this.$refs.input.focus();
       }, 100);
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
-</style>
+<style></style>

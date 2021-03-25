@@ -4,7 +4,13 @@ import Snap from "snapsvg-cjs";
 // const { sentenceConllToJson, sentenceJsonToConll } = conllup;
 
 // import { MetaJson, TreeJson, TokenJson, sentenceJsonToConll, sentenceConllToJson } from "conllup-js/lib/conll";;
-import { MetaJson, TreeJson, TokenJson, sentenceJsonToConll, sentenceConllToJson } from "@/localConllup/conll";;
+import {
+  MetaJson,
+  TreeJson,
+  TokenJson,
+  sentenceJsonToConll,
+  sentenceConllToJson
+} from "@/localConllup/conll";
 
 import { EventDispatcher } from "./EventDispatcher";
 import { ReactiveSentence } from "./ReactiveSentence";
@@ -185,7 +191,7 @@ export class SentenceSVG extends EventDispatcher {
       })
     );
     this.levelsArray = Array.apply(null, Array(headsIdArray.length)).map(
-      function () {
+      function() {
         return -1;
       }
     );
@@ -275,7 +281,6 @@ export class SentenceSVG extends EventDispatcher {
     }
     this.snapSentence.attr({ width: this.totalWidth + 15 });
     this.snapSentence.attr({ height: this.totalHeight || 1000 }); // 1000 was there in case the SVG pop up after the div, so it give a heigth
-
   }
 
   attachEvents() {
@@ -425,24 +430,20 @@ class TokenSVG {
     let maxFeatureWidth = 0;
     for (const feature of shownFeatures) {
       // create new snap node for the feature text
-      let featureText: string
+      let featureText: string;
 
       // check if there is a feature and if it's a nested feature (misc and feats)
       if (this.tokenJson[feature]) {
-        if (feature.split(".").length >= 2) { // if len >=2, it means it's a misc or feats
-          featureText = `${feature.split(".")[1]}=${this.tokenJson[feature]}`
+        if (feature.split(".").length >= 2) {
+          // if len >=2, it means it's a misc or feats
+          featureText = `${feature.split(".")[1]}=${this.tokenJson[feature]}`;
         } else {
-          featureText = this.tokenJson[feature] as string
+          featureText = this.tokenJson[feature] as string;
         }
+      } else {
+        featureText = "";
       }
-      else {
-        featureText = ""
-      }
-      const snapFeature = snapSentence.text(
-        this.startX,
-        runningY,
-        featureText,
-      );
+      const snapFeature = snapSentence.text(this.startX, runningY, featureText);
       snapFeature.addClass(feature.split(".")[0]);
 
       this.snapElements[feature] = snapFeature;
@@ -452,7 +453,12 @@ class TokenSVG {
       maxFeatureWidth = Math.max(maxFeatureWidth, featureWidth); // keep biggest node width
 
       // increment position except if feature is a FEATS or MISC which is not present for the token
-      if (!(["MISC", "FEATS"].includes(feature.split(".")[0]) && (featureText === ""))) {
+      if (
+        !(
+          ["MISC", "FEATS"].includes(feature.split(".")[0]) &&
+          featureText === ""
+        )
+      ) {
         runningY += SVG_CONFIG.spacingY;
       }
     }

@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       dialog: false,
-      sentenceConll: "",
+      sentenceConll: ""
     };
   },
   mounted() {
@@ -23,8 +23,8 @@ export default {
   methods: {
     update(reactiveSentence) {
       this.sentenceConll = reactiveSentence.exportConll();
-    },
-  },
+    }
+  }
 };
 </script>
 

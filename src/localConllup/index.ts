@@ -5,8 +5,8 @@ import {
   emptyMetaJson,
   emptyTreeJson,
   emptyTokenJson,
-  emptyFeatureJson,
-} from './conll';
+  emptyFeatureJson
+} from "./conll";
 
 export default {
   sentenceConllToJson,
@@ -15,5 +15,5 @@ export default {
   emptyMetaJson,
   emptyTreeJson,
   emptyTokenJson,
-  emptyFeatureJson,
+  emptyFeatureJson
 };

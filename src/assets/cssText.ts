@@ -242,4 +242,4 @@ export const cssText = `.FORM {
   font-size: 10px;
   fill: #6d346d;
 }
-`
+`;

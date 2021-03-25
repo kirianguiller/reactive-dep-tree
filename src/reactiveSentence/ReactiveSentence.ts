@@ -147,13 +147,13 @@ export class ReactiveSentence implements IOriginator, ISubject {
   }
 
   public getUndescoredText(): string {
-    const tokensForms = []
+    const tokensForms = [];
     for (const tokenId in this.state.treeJson) {
-      const token = this.state.treeJson[tokenId]
-      tokensForms.push(token.FORM)
+      const token = this.state.treeJson[tokenId];
+      tokensForms.push(token.FORM);
     }
-    const underscoredText = tokensForms.join("_")
-    return underscoredText
+    const underscoredText = tokensForms.join("_");
+    return underscoredText;
   }
 }
 

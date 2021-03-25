@@ -58,8 +58,9 @@
         <!-- TODO : implement redo logic -->
         <!-- <span class="dropdown__item">Redo</span> -->
       </template>
-      <span class="dropdown__item" @click="aboutArborator">About Arborator</span>
-
+      <span class="dropdown__item" @click="aboutArborator"
+        >About Arborator</span
+      >
     </div>
   </dropdown-menu>
 </template>
@@ -73,14 +74,14 @@ export default {
     "sentenceBus",
     "sentenceCaretaker",
     "interactive",
-    "reactiveSentence",
+    "reactiveSentence"
   ],
   data() {
     return {
       show: false,
       hover: true,
       right: false,
-      conllShowed: false,
+      conllShowed: false
     };
   },
   methods: {
@@ -132,9 +133,12 @@ export default {
       URL.revokeObjectURL(link.href);
     },
     aboutArborator() {
-      window.open("https://github.com/kirianguiller/reactive-dep-tree", '_blank')
+      window.open(
+        "https://github.com/kirianguiller/reactive-dep-tree",
+        "_blank"
+      );
     }
-  },
+  }
 };
 </script>
 
