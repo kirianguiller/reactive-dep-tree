@@ -394,4 +394,9 @@ export default {
 .DEPREL.diff {
   fill: red;
 }
+
+.FEATS, .MISC {
+  font-size: 10px;
+  fill: #6d346d;
+}
 </style>

@@ -425,12 +425,25 @@ class TokenSVG {
     let maxFeatureWidth = 0;
     for (const feature of shownFeatures) {
       // create new snap node for the feature text
+      let featureText: string
+
+      // check if there is a feature and if it's a nested feature (misc and feats)
+      if (this.tokenJson[feature]) {
+        if (feature.split(".").length >= 2) { // if len >=2, it means it's a misc or feats
+          featureText = `${feature.split(".")[1]}=${this.tokenJson[feature]}`
+        } else {
+          featureText = this.tokenJson[feature] as string
+        }
+      }
+      else {
+        featureText = ""
+      }
       const snapFeature = snapSentence.text(
         this.startX,
         runningY,
-        this.tokenJson[feature] as string
+        featureText,
       );
-      snapFeature.addClass(feature);
+      snapFeature.addClass(feature.split(".")[0]);
 
       this.snapElements[feature] = snapFeature;
 
@@ -438,8 +451,10 @@ class TokenSVG {
       const featureWidth = snapFeature.getBBox().w;
       maxFeatureWidth = Math.max(maxFeatureWidth, featureWidth); // keep biggest node width
 
-      // increment position
-      runningY += SVG_CONFIG.spacingY;
+      // increment position except if feature is a FEATS or MISC which is not present for the token
+      if (!(["MISC", "FEATS"].includes(feature.split(".")[0]) && (featureText === ""))) {
+        runningY += SVG_CONFIG.spacingY;
+      }
     }
     this.width = maxFeatureWidth + SVG_CONFIG.spacingX;
     this.centerX = this.startX + this.width / 2;
