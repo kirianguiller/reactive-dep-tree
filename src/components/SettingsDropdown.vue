@@ -1,9 +1,5 @@
 <template>
-  <dropdown-menu
-    v-model="show"
-    :right="right"
-    :hover="hover"
-  >
+  <dropdown-menu v-model="show" :right="right" :hover="hover">
     <svg
       class="dropdown__extern"
       xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -54,20 +50,31 @@
       <span class="dropdown__item" @click="toggleConll">{{
         conllShowed ? "Hide Conll" : "Show Conll"
       }}</span>
+      <span class="dropdown__item" @click="exportSVG">Export SVG</span>
+      <span class="dropdown__item" @click="exportPNG">Export PNG</span>
+
       <template v-if="interactive">
         <span class="dropdown__item" @click="undo">Undo</span>
-        <span class="dropdown__item">Redo</span>
+        <!-- TODO : implement redo logic -->
+        <!-- <span class="dropdown__item">Redo</span> -->
       </template>
+      <span class="dropdown__item" @click="aboutArborator">About Arborator</span>
+
     </div>
   </dropdown-menu>
 </template>
 
 <script>
 import DropdownMenu from "@innologica/vue-dropdown-menu";
-
+import { cssText } from "../assets/cssText";
 export default {
   components: { DropdownMenu },
-  props: ["sentenceBus", "sentenceCaretaker", "interactive"],
+  props: [
+    "sentenceBus",
+    "sentenceCaretaker",
+    "interactive",
+    "reactiveSentence",
+  ],
   data() {
     return {
       show: false,
@@ -84,6 +91,49 @@ export default {
     undo() {
       this.sentenceCaretaker.undo();
     },
+    getSVGblob() {
+      const svgText = this.$parent.$refs.svgWrapper.outerHTML;
+
+      const exportedSvg = svgText.replace(
+        "<defs></defs>",
+        `<style>${cssText}</style><defs></defs>`
+      );
+      const blob = new Blob([exportedSvg], { type: "image/svg+xml" });
+      return blob;
+    },
+    exportPNG() {
+      const svgImage = document.createElement("img");
+      document.body.appendChild(svgImage);
+      const blob = this.getSVGblob();
+      const DOMURL = window.URL || window.webkitURL || window;
+      const url = DOMURL.createObjectURL(blob);
+      svgImage.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = svgImage.clientWidth;
+        canvas.height = svgImage.clientHeight;
+        const canvasCtx = canvas.getContext("2d");
+        canvasCtx.drawImage(svgImage, 0, 0);
+        const imgData = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = imgData;
+        link.download = this.reactiveSentence.getUndescoredText() + ".png";
+        link.click();
+      };
+      svgImage.src = url;
+      document.body.removeChild(svgImage);
+    },
+    exportSVG() {
+      const blob = this.getSVGblob();
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = this.reactiveSentence.getUndescoredText() + ".svg";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    },
+    aboutArborator() {
+      window.open("https://github.com/kirianguiller/reactive-dep-tree", '_blank')
+    }
   },
 };
 </script>

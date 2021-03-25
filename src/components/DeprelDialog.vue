@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div v-if="dialog" style="display: inline-block">
+    <label for="">New deprel : </label>
     <input
       ref="input"
-      v-if="dialog"
       type="text"
       v-on:keyup.enter="onValidate"
       v-model="tagValue"
@@ -19,14 +19,18 @@ export default {
       dialog: false,
       tagValue: "",
       token: {},
-    }
+    };
   },
   mounted() {
     this.sentenceBus.$on("open:deprelDialog", (token) => {
-      this.dialog = true
-      this.token = token
-      this.focusInput()
-    })
+      this.dialog = true;
+      this.token = token;
+      this.focusInput();
+    });
+    this.sentenceBus.$on("reset:allDialog", () => {
+      this.dialog = false;
+      this.token = {};
+    });
   },
   methods: {
     onValidate() {
@@ -34,17 +38,17 @@ export default {
       if (newDeprel === "") {
         newDeprel = "X";
       }
-      this.token.DEPREL = newDeprel
-      this.sentenceBus.$emit("update:token", this.token)
-      this.token = {}
-      this.dialog = false
+      this.token.DEPREL = newDeprel;
+      this.sentenceBus.$emit("update:token", this.token);
+      this.token = {};
+      this.dialog = false;
     },
     focusInput() {
-      setTimeout(()=> {
-        this.$refs.input.focus()
-      },100)
-    }
-  }
+      setTimeout(() => {
+        this.$refs.input.focus();
+      }, 100);
+    },
+  },
 };
 </script>
 

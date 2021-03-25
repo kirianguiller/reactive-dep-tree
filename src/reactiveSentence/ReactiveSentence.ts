@@ -145,6 +145,16 @@ export class ReactiveSentence implements IOriginator, ISubject {
       metaJson: this.state.metaJson
     });
   }
+
+  public getUndescoredText(): string {
+    const tokensForms = []
+    for (const tokenId in this.state.treeJson) {
+      const token = this.state.treeJson[tokenId]
+      tokensForms.push(token.FORM)
+    }
+    const underscoredText = tokensForms.join("_")
+    return underscoredText
+  }
 }
 
 export class SentenceCaretaker implements ICaretaker {

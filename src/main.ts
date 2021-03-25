@@ -8,6 +8,13 @@ Vue.use(vueCustomElement);
 import ReactiveDepTree from "./ReactiveDepTree.vue";
 import MinimalDepTree from "./MinimalDepTree.vue";
 
+
+Vue.component('v-style', {
+  render: function (createElement) {
+    return createElement('style', this.$slots.default)
+  }
+});
+
 // Configure Vue to ignore the element name when defined outside of Vue.
 Vue.config.ignoredElements = ["reactive-dep-tree", "minimal-dep-tree"];
 
