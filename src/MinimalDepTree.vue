@@ -22,13 +22,13 @@ export default {
   },
   mounted() {
     const svgWrapper = this.$refs.svgWrapper;
+    this.reactiveSentence.fromSentenceConll(this.conll);
 
     const sentenceSVGOptions = defaultSentenceSVGOptions();
 
     // extract all features (shown, hidden)
     const shownFeatures = this.processFeaturesInput(this.shownFeatures);
     const hiddenFeatures = this.processFeaturesInput(this.hiddenFeatures);
-    console.log("KK hiddenFeatures", hiddenFeatures);
     if (shownFeatures.length === 0) {
       sentenceSVGOptions.shownFeatures = this.reactiveSentence.getAllFeaturesSet();
     } else {
@@ -39,10 +39,6 @@ export default {
       x => !hiddenFeatures.includes(x)
     );
 
-    console.log(
-      "KK sentenceSVGOptions.shownFeatures",
-      sentenceSVGOptions.shownFeatures
-    );
     // Set interactivity to false
     sentenceSVGOptions.interactive = false;
 
@@ -51,7 +47,6 @@ export default {
       this.reactiveSentence,
       sentenceSVGOptions
     );
-    this.reactiveSentence.fromSentenceConll(this.conll);
   },
   methods: {
     processFeaturesInput(features) {

@@ -176,16 +176,15 @@ export class ReactiveSentence implements IOriginator, ISubject {
     for (const tokenId in this.state.treeJson) {
       const features: FeatureJson = this.state.treeJson[tokenId].FEATS;
       const miscs: FeatureJson = this.state.treeJson[tokenId].MISC;
-
       for (const feat in features) {
-        if (!allFeaturesSet.includes(feat)) {
-          allFeaturesSet.push(feat);
+        if (!allFeaturesSet.includes(`FEATS.${feat}`)) {
+          allFeaturesSet.push(`FEATS.${feat}`);
         }
       }
 
       for (const misc in miscs) {
-        if (!allFeaturesSet.includes(misc)) {
-          allFeaturesSet.push(misc);
+        if (!allFeaturesSet.includes(`MISC.${misc}`)) {
+          allFeaturesSet.push(`MISC.${misc}`);
         }
       }
     }

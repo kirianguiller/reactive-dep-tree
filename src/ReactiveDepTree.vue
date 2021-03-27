@@ -87,6 +87,7 @@ export default {
     const svgWrapper = this.$refs.svgWrapper;
     // add the component to the list of reactiveSentence observers
     this.reactiveSentence.attach(this);
+    this.reactiveSentence.fromSentenceConll(this.conll)
 
     const sentenceSVGOptions = defaultSentenceSVGOptions();
     const shownFeatures = this.processFeaturesInput(this.shownFeatures);
@@ -108,7 +109,7 @@ export default {
       this.reactiveSentence,
       sentenceSVGOptions
     );
-    this.reactiveSentence.fromSentenceConll(this.conll);
+    // this.reactiveSentence.fromSentenceConll(this.conll);
 
     this.sentenceCaretaker = new SentenceCaretaker(this.reactiveSentence);
 
