@@ -1,23 +1,43 @@
 <template>
   <div class="component-wrapper">
-    <div class="meta_container">
-      <SettingsDropdown
-        class="meta_dropdown"
-        :sentenceBus="sentenceBus"
-        :sentenceCaretaker="sentenceCaretaker"
-        :interactive="interactive"
-        :reactiveSentence="reactiveSentence"
+    <template v-if="minimal == false">
+      <div class="meta">
+        <div class="meta__header">
+          <SettingsDropdown
+            class="meta__dropdown"
+            :sentenceBus="sentenceBus"
+            :sentenceCaretaker="sentenceCaretaker"
+            :interactive="interactive"
+            :reactiveSentence="reactiveSentence"
+          />
+          <span class="meta__text">{{ sentenceText }}</span>
+        </div>
+        <div class="meta__infos">
+          <span v-for="(metaValue, metaKey) of shownMetasObj" :key="metaKey"
+            >{{ metaKey }} = {{ metaValue }}<br
+          /></span>
+        </div>
+      </div>
+      <svg
+        ref="svgWrapper"
+        class="svg-tree"
+        xmlns="http://www.w3.org/2000/svg"
       />
-      <span class="meta__text">{{ sentenceText }}</span>
-    </div>
-    <svg ref="svgWrapper" class="svg-tree" xmlns="http://www.w3.org/2000/svg" />
-    <DeprelDialog :sentenceBus="sentenceBus" />
-    <UposDialog :sentenceBus="sentenceBus" />
-    <ShowConll
-      :reactiveSentence="reactiveSentence"
-      :sentenceBus="sentenceBus"
-    />
-    <v-style ref="stylee"> </v-style>
+      <DeprelDialog :sentenceBus="sentenceBus" />
+      <UposDialog :sentenceBus="sentenceBus" />
+      <ShowConll
+        :reactiveSentence="reactiveSentence"
+        :sentenceBus="sentenceBus"
+      />
+      <v-style ref="stylee"> </v-style>
+    </template>
+    <template v-else>
+      <svg
+        ref="svgWrapper"
+        class="svg-tree"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </template>
   </div>
 </template>
 
@@ -39,7 +59,18 @@ import ShowConll from "./components/ShowConll.vue";
 
 export default {
   components: { DeprelDialog, UposDialog, SettingsDropdown, ShowConll },
-  props: ["conll", "interactive", "shown-features"],
+  // props: ["conll", "interactive", "shown-features"],
+  props: {
+    conll: String,
+    interactive: Boolean,
+    shownFeatures: String,
+    hiddenFeatures: String,
+    shownMetas: String,
+    minimal: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       reactiveSentence: new ReactiveSentence(),
@@ -48,7 +79,8 @@ export default {
       sentenceCaretaker: null,
       sentenceText: "",
       show: false,
-      hover: true
+      hover: true,
+      shownMetasObj: {}
     };
   },
   mounted() {
@@ -57,9 +89,18 @@ export default {
     this.reactiveSentence.attach(this);
 
     const sentenceSVGOptions = defaultSentenceSVGOptions();
-    if (this.shownFeatures) {
-      sentenceSVGOptions.shownFeatures = this.shownFeatures.split(",");
+    const shownFeatures = this.processFeaturesInput(this.shownFeatures);
+    const hiddenFeatures = this.processFeaturesInput(this.hiddenFeatures);
+
+    if (shownFeatures.length === 0) {
+      sentenceSVGOptions.shownFeatures = this.reactiveSentence.getAllFeaturesSet();
+    } else {
+      sentenceSVGOptions.shownFeatures = shownFeatures;
     }
+
+    sentenceSVGOptions.shownFeatures = sentenceSVGOptions.shownFeatures.filter(
+      x => !hiddenFeatures.includes(x)
+    );
     sentenceSVGOptions.interactive = this.interactive;
 
     this.sentenceSVG = new SentenceSVG(
@@ -112,9 +153,30 @@ export default {
       this.reactiveSentence.updateToken(token);
     });
   },
+  computed: {
+    shownMetasList() {
+      return this.processFeaturesInput(this.shownMetas);
+    }
+  },
   methods: {
     update(reactiveSentence) {
-      this.sentenceText = reactiveSentence.state.metaJson.text;
+      this.sentenceText = reactiveSentence.getSentenceText();
+      this.shownMetasObj = {};
+      for (const shownMeta of this.shownMetasList) {
+        if (reactiveSentence.state.metaJson[shownMeta]) {
+          this.shownMetasObj[shownMeta] =
+            reactiveSentence.state.metaJson[shownMeta];
+        }
+      }
+    },
+    processFeaturesInput(features) {
+      let processedFeatures;
+      if (features) {
+        processedFeatures = features.split(",");
+      } else {
+        processedFeatures = [];
+      }
+      return processedFeatures;
     }
   }
 };
@@ -133,29 +195,40 @@ export default {
   margin-left: -20px;
 }
 
-.meta_container {
+.meta {
   margin-bottom: 0.6em;
   border-bottom: 1px solid lightgrey;
   padding: 0.5em 0 0.17em 0;
 }
 
-.meta_dropdown {
+.meta__header {
+  margin-bottom: 10px;
+}
+
+.meta__dropdown {
   padding: 0 20px;
 }
 
-.meta_dropdown,
-.meta_text {
+.meta__dropdown,
+.meta__text {
   display: inline-block;
   vertical-align: middle;
 }
 
 .meta__text {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.5;
 }
+
+.meta__infos {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.9em;
+  font-style: italic;
+  padding-left: 65px;
+}
+
 .FORM {
-  /* 	font: 18px DejaVu Sans; */
-  /* 	fill: black; */
+  font: 18px "DejaVu Sans";
+  fill: black;
   /* 	font-family:sans-serif; */
   --wordDistance: 55;
   fill: black;
@@ -164,10 +237,7 @@ export default {
   z-index: 99;
 }
 
-.interactive > .FORM,
-.interactive > .LEMMA,
-.interactive > .UPOS,
-.interactive > .DEPREL {
+.interactive {
   cursor: pointer;
 }
 
@@ -183,7 +253,7 @@ export default {
 }
 
 .LEMMA {
-  font: 15px DejaVu Sans;
+  font: 15px "DejaVu Sans";
   fill: black;
   font-family: sans-serif;
   text-align: center;
@@ -193,7 +263,7 @@ export default {
 }
 
 .dark .LEMMA {
-  font: 15px DejaVu Sans;
+  font: 15px "DejaVu Sans";
   fill: rgb(238, 232, 232);
   font-family: sans-serif;
   text-align: center;
@@ -210,7 +280,8 @@ export default {
   --wordDistance: 11;
 }
 
-.UPOS {
+.UPOS,
+.XPOS {
   font: 11px DejaVu Sans;
   fill: rgb(80, 29, 125);
   /* cursor: pointer; */
@@ -309,60 +380,6 @@ export default {
   text-align: center;
 }
 
-.conll {
-  display: none; /*toggles to inline*/
-  unicode-bidi: embed;
-  font-family: monospace;
-  white-space: pre;
-  margin-bottom: 0.6em;
-  border-bottom: 1px solid #aaa;
-  padding: 0.5em 0 0.17em 0;
-  tab-size: 12;
-  background-color: #fff;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
-.sentencebox {
-  margin-bottom: 0.6em;
-  border-bottom: 1px solid #aaa;
-  padding: 0.5em 0 0.17em 0;
-  margin-top: 1em;
-}
-
-/* Button */
-.button {
-  display: inline-block;
-  position: relative;
-  width: 120px;
-  height: 32px;
-  line-height: 32px;
-  border-radius: 2px;
-  font-size: 0.9em;
-  background-color: #fff;
-  color: #646464;
-  cursor: pointer;
-}
-
-.button > paper-ripple {
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.button.raised {
-  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0.2s;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
-.button.raised:active {
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
-  transition-delay: 0s;
-}
-
-.center {
-  text-align: center;
-}
-
 /* logo animation transitions */
 .arboratorlogo {
   transition: all 0.4s ease-in-out;
@@ -374,10 +391,6 @@ export default {
   transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
   opacity: 0.9;
-}
-
-.svgbox {
-  overflow-x: auto;
 }
 
 .curve.diff,

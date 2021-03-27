@@ -1,16 +1,9 @@
 import Snap from "snapsvg-cjs";
 
-// import conllup from "../../../../conllup-js";;
-// const { sentenceConllToJson, sentenceJsonToConll } = conllup;
+import conllup from "conllup";
+const { sentenceConllToJson, sentenceJsonToConll } = conllup;
 
-// import { MetaJson, TreeJson, TokenJson, sentenceJsonToConll, sentenceConllToJson } from "conllup-js/lib/conll";;
-import {
-  MetaJson,
-  TreeJson,
-  TokenJson,
-  sentenceJsonToConll,
-  sentenceConllToJson
-} from "@/localConllup/conll";
+import { TreeJson, TokenJson, MetaJson } from "conllup/lib/conll";
 
 import { EventDispatcher } from "./EventDispatcher";
 import { ReactiveSentence } from "./ReactiveSentence";
@@ -40,7 +33,7 @@ export interface SentenceSVGOptions {
 }
 
 export const defaultSentenceSVGOptions = (): SentenceSVGOptions => ({
-  shownFeatures: ["FORM", "UPOS"],
+  shownFeatures: [],
   interactive: false
 });
 
@@ -52,7 +45,7 @@ export class SentenceSVG extends EventDispatcher {
   treeJson: TreeJson;
   metaJson: MetaJson;
   teacherTreeJson: TreeJson = {};
-  shownFeatures: string[] = ["FORM", "UPOS"];
+  shownFeatures: string[] = [];
   // matchnodes: Array<string>;
   // matchedges: string[];
   tokenSVGs: { [key: number]: TokenSVG } = {};
@@ -71,51 +64,23 @@ export class SentenceSVG extends EventDispatcher {
     sentenceSVGOptions: SentenceSVGOptions
   ) {
     super();
-    // Object.assign(this, opts);
-    //// base properties
-    // this.snapSentence = Snap(`#${svgID}`);
     this.snapSentence = Snap(svgWrapper);
     this.treeJson = reactiveSentence.state.treeJson;
     this.metaJson = reactiveSentence.state.metaJson;
 
     Object.assign(this.options, sentenceSVGOptions);
+
     reactiveSentence.attach(this);
+
+    if (this.options.shownFeatures.length === 0) {
+      this.options.shownFeatures = reactiveSentence.getAllFeaturesSet();
+    }
 
     // // put FORM at the beginning of the shownFeatures array
     this.options.shownFeatures = this.options.shownFeatures.filter(
       item => item !== "FORM"
     );
     this.options.shownFeatures.unshift("FORM");
-    //
-
-    // This is what make the whole SentenceSVG/ReactiveSentence reactive.
-    // ... SentenceSVG is listening to changes in the ReactiveSentence object
-    // document.addEventListener;
-    // this.reactiveSentence.addEventListener("token-updated", (e) => {
-    //   this.refresh();
-    // });
-
-    // this.reactiveSentence.addEventListener("tree-updated", (e) => {
-    //   this.treeJson = this.reactiveSentence.treeJson;
-    //   this.metaJson = this.reactiveSentence.metaJson;
-    //   this.tokenSVGs = {};
-    //   this.refresh();
-    // });
-
-    // //// to refactor (start of drawit)
-    // this.matchnodes = this.usermatches
-    //   .map(({ nodes }) => Object.values(nodes))
-    //   .flat(); // simple array of match nodes to highlight
-    // this.matchedges = Object.fromEntries(
-    //   this.usermatches.map((um) =>
-    //     um.edges.length == null ? [] : [um.edges.e.target, um.edges.e]
-    //   )
-    // ); // object { target node : object }
-
-    // populate ylevel, be careful, the computed levels are stored
-    // ... inside this.getLevel() as a side effect. TODO : Make this better
-
-    // this.plugDiffTree(this.teacherReactiveSentence);
     this.drawTree();
   }
 

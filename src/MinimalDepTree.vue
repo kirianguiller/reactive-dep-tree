@@ -12,7 +12,7 @@ import {
 } from "./reactiveSentence/SentenceSVG";
 
 export default {
-  props: ["conll", "shown-features"],
+  props: ["conll", "shownFeatures", "hiddenFeatures"],
   data() {
     return {
       reactiveSentence: new ReactiveSentence(),
@@ -22,12 +22,28 @@ export default {
   },
   mounted() {
     const svgWrapper = this.$refs.svgWrapper;
-    // add the component to the list of reactiveSentence observers
 
     const sentenceSVGOptions = defaultSentenceSVGOptions();
-    if (this.shownFeatures) {
-      sentenceSVGOptions.shownFeatures = this.shownFeatures.split(",");
+
+    // extract all features (shown, hidden)
+    const shownFeatures = this.processFeaturesInput(this.shownFeatures);
+    const hiddenFeatures = this.processFeaturesInput(this.hiddenFeatures);
+    console.log("KK hiddenFeatures", hiddenFeatures);
+    if (shownFeatures.length === 0) {
+      sentenceSVGOptions.shownFeatures = this.reactiveSentence.getAllFeaturesSet();
+    } else {
+      sentenceSVGOptions.shownFeatures = shownFeatures;
     }
+
+    sentenceSVGOptions.shownFeatures = sentenceSVGOptions.shownFeatures.filter(
+      x => !hiddenFeatures.includes(x)
+    );
+
+    console.log(
+      "KK sentenceSVGOptions.shownFeatures",
+      sentenceSVGOptions.shownFeatures
+    );
+    // Set interactivity to false
     sentenceSVGOptions.interactive = false;
 
     this.sentenceSVG = new SentenceSVG(
@@ -36,6 +52,17 @@ export default {
       sentenceSVGOptions
     );
     this.reactiveSentence.fromSentenceConll(this.conll);
+  },
+  methods: {
+    processFeaturesInput(features) {
+      let processedFeatures;
+      if (features) {
+        processedFeatures = features.split(",");
+      } else {
+        processedFeatures = [];
+      }
+      return processedFeatures;
+    }
   }
 };
 </script>
@@ -45,8 +72,8 @@ export default {
 }
 
 .FORM {
-  /* 	font: 18px DejaVu Sans; */
-  /* 	fill: black; */
+  font: 18px "DejaVu Sans";
+  fill: black;
   /* 	font-family:sans-serif; */
   --wordDistance: 55;
   fill: black;
@@ -55,10 +82,7 @@ export default {
   z-index: 99;
 }
 
-.interactive > .FORM,
-.interactive > .LEMMA,
-.interactive > .UPOS,
-.interactive > .DEPREL {
+.interactive {
   cursor: pointer;
 }
 
@@ -74,7 +98,7 @@ export default {
 }
 
 .LEMMA {
-  font: 15px DejaVu Sans;
+  font: 15px "DejaVu Sans";
   fill: black;
   font-family: sans-serif;
   text-align: center;
@@ -84,7 +108,7 @@ export default {
 }
 
 .dark .LEMMA {
-  font: 15px DejaVu Sans;
+  font: 15px "DejaVu Sans";
   fill: rgb(238, 232, 232);
   font-family: sans-serif;
   text-align: center;
@@ -200,60 +224,6 @@ export default {
   text-align: center;
 }
 
-.conll {
-  display: none; /*toggles to inline*/
-  unicode-bidi: embed;
-  font-family: monospace;
-  white-space: pre;
-  margin-bottom: 0.6em;
-  border-bottom: 1px solid #aaa;
-  padding: 0.5em 0 0.17em 0;
-  tab-size: 12;
-  background-color: #fff;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
-.sentencebox {
-  margin-bottom: 0.6em;
-  border-bottom: 1px solid #aaa;
-  padding: 0.5em 0 0.17em 0;
-  margin-top: 1em;
-}
-
-/* Button */
-.button {
-  display: inline-block;
-  position: relative;
-  width: 120px;
-  height: 32px;
-  line-height: 32px;
-  border-radius: 2px;
-  font-size: 0.9em;
-  background-color: #fff;
-  color: #646464;
-  cursor: pointer;
-}
-
-.button > paper-ripple {
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.button.raised {
-  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0.2s;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
-.button.raised:active {
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
-  transition-delay: 0s;
-}
-
-.center {
-  text-align: center;
-}
-
 /* logo animation transitions */
 .arboratorlogo {
   transition: all 0.4s ease-in-out;
@@ -267,10 +237,6 @@ export default {
   opacity: 0.9;
 }
 
-.svgbox {
-  overflow-x: auto;
-}
-
 .curve.diff,
 .arrowhead.diff {
   stroke: red;
@@ -282,5 +248,11 @@ export default {
 .UPOS.diff,
 .DEPREL.diff {
   fill: red;
+}
+
+.FEATS,
+.MISC {
+  font-size: 10px;
+  fill: #6d346d;
 }
 </style>

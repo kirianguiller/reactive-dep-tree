@@ -1,9 +1,13 @@
-// import conllup from '../../../conllup-js/lib/index';
-import conllup from "@/localConllup";
-const { emptySentenceJson } = conllup;
+import conllup from "conllup";
+const { emptySentenceJson, sentenceConllToJson, sentenceJsonToConll } = conllup;
 
-// import { SentenceJson, TreeJson, TokenJson } from "conllup/lib/conll";
-import { SentenceJson, TreeJson, TokenJson } from "@/localConllup/conll";
+import {
+  SentenceJson,
+  TreeJson,
+  TokenJson,
+  FeatureJson
+} from "conllup/lib/conll";
+
 import { IOriginator, IMemento, ICaretaker } from "./MementoPattern";
 import { ISubject, IObserver } from "./ObserverPattern";
 
@@ -120,7 +124,7 @@ export class ReactiveSentence implements IOriginator, ISubject {
    */
   public fromSentenceConll(sentenceConll: string): void {
     console.log("\nSubject: I'm doing something important.");
-    this.state = conllup.sentenceConllToJson(sentenceConll);
+    this.state = sentenceConllToJson(sentenceConll);
 
     console.log(`Subject: My state has just changed to: ${this.state}`);
     this.notify();
@@ -140,10 +144,21 @@ export class ReactiveSentence implements IOriginator, ISubject {
   }
 
   public exportConll() {
-    return conllup.sentenceJsonToConll({
+    return sentenceJsonToConll({
       treeJson: this.state.treeJson,
       metaJson: this.state.metaJson
     });
+  }
+
+  public getSentenceText(): string {
+    let sentence = "";
+    for (const tokenId in this.state.treeJson) {
+      const token = this.state.treeJson[tokenId];
+      const form = token.FORM;
+      const space = token.MISC.SpaceAfter === "No" ? "" : " ";
+      sentence = sentence + form + space;
+    }
+    return sentence;
   }
 
   public getUndescoredText(): string {
@@ -154,6 +169,27 @@ export class ReactiveSentence implements IOriginator, ISubject {
     }
     const underscoredText = tokensForms.join("_");
     return underscoredText;
+  }
+
+  public getAllFeaturesSet(): string[] {
+    const allFeaturesSet: string[] = ["FORM", "LEMMA", "UPOS", "XPOS"];
+    for (const tokenId in this.state.treeJson) {
+      const features: FeatureJson = this.state.treeJson[tokenId].FEATS;
+      const miscs: FeatureJson = this.state.treeJson[tokenId].MISC;
+
+      for (const feat in features) {
+        if (!allFeaturesSet.includes(feat)) {
+          allFeaturesSet.push(feat);
+        }
+      }
+
+      for (const misc in miscs) {
+        if (!allFeaturesSet.includes(misc)) {
+          allFeaturesSet.push(misc);
+        }
+      }
+    }
+    return allFeaturesSet;
   }
 }
 

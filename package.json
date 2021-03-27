@@ -1,6 +1,6 @@
 {
   "name": "reactive-dep-tree",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/reactive-dep-tree.common.js",
   "files": [
     "dist/"
@@ -20,7 +20,7 @@
   "dependencies": {
     "@innologica/vue-dropdown-menu": "^0.1.4",
     "@types/snapsvg": "^0.5.0",
-    "conllup": "^1.0.7",
+    "conllup": "^1.0.8",
     "core-js": "^3.6.5",
     "snapsvg": "^0.5.1",
     "snapsvg-cjs": "0.0.6",
@@ -30,10 +30,10 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-typescript": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@vue/cli-plugin-babel": "^4.5.12",
+    "@vue/cli-plugin-eslint": "^4.5.12",
+    "@vue/cli-plugin-typescript": "^4.5.12",
+    "@vue/cli-service": "^4.5.12",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
     "eslint": "^6.7.2",

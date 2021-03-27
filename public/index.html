@@ -16,10 +16,13 @@
       >
     </noscript>
     <p>its outside of the shadow dom !</p>
+    <!-- shown-features="UPOS,LEMMA,FEATS.Case,FEATS.Mood,MISC.SpaceAfter,FEATS.Number,FEATS.Person,FEATS.PronType,FEATS.Tense" -->
     <reactive-dep-tree
-      shown-features="UPOS,LEMMA,FEATS.Case,FEATS.Mood,MISC.SpaceAfter,FEATS.Number,FEATS.Person,FEATS.PronType,FEATS.Tense"
-      conll="# sent_id = email-enronsent19_01-0071
-        # text = I'm happy about this.
+    hidden-features="XPOS,LEMMA"
+    shown-metas="text_fr"
+    conll="# sent_id = email-enronsent19_01-0071
+        # text = I'm happy about SUD.
+        # text_fr = Je suis content de SUD.
         1	I	I	PRON	PRP	Case=Nom|Number=Sing|Person=1|PronType=Prs	2	subj	_	SpaceAfter=No
         2	'm	be	AUX	VBP	Mood=Ind|Tense=Pres|VerbForm=Fin	0	root	_	_
         3	happy	happy	ADJ	JJ	Degree=Pos	2	comp:pred	_	_
@@ -47,7 +50,8 @@
     <br />
     <br />
     <minimal-dep-tree
-      shown-features="UPOS,LEMMA"
+      hidden-features="LEMMA"
+      shown-features="UPOS"
       conll="# text = 事件
     # blue = value
       1	事	bleu	NOUN	_	_	0	root	_	_
@@ -55,7 +59,19 @@
       3	件	_	NOUN	_	_	2	deprel	_	_
     "
     ></minimal-dep-tree>
-    <!-- <reactive-dep-tree conll=""></reactive-dep-tree> -->
+    <br>
+    <br>
+    <br>
+    <reactive-dep-tree
+    minimal="true"
+    shown-features="UPOS,LEMMA"
+    conll="# text = 事件
+  # blue = value
+    1	事	bleu	NOUN	_	_	0	root	_	_
+    2	件	bla	NOUN	_	_	1	root	_	_
+    3	件	_	NOUN	_	_	2	deprel	_	_
+  "
+  ></reactive-dep-tree>
     <!-- built files will be auto injected -->
   </body>
 </html>
