@@ -1,43 +1,45 @@
 <template>
-  <div class="component-wrapper">
-    <template v-if="minimal == false">
-      <div class="meta">
-        <div class="meta__header">
-          <SettingsDropdown
-            class="meta__dropdown"
-            :sentenceBus="sentenceBus"
-            :sentenceCaretaker="sentenceCaretaker"
-            :interactive="interactive"
-            :reactiveSentence="reactiveSentence"
-          />
-          <span class="meta__text">{{ sentenceText }}</span>
+  <div class="scroll-wrapper">
+    <div class="component-wrapper">
+      <template v-if="minimal == false">
+        <div class="meta">
+          <div class="meta__header">
+            <SettingsDropdown
+              class="meta__dropdown"
+              :sentenceBus="sentenceBus"
+              :sentenceCaretaker="sentenceCaretaker"
+              :interactive="interactive"
+              :reactiveSentence="reactiveSentence"
+            />
+            <span class="meta__text">{{ sentenceText }}</span>
+          </div>
+          <div class="meta__infos">
+            <span v-for="(metaValue, metaKey) of shownMetasObj" :key="metaKey"
+              >{{ metaKey }} = {{ metaValue }}<br
+            /></span>
+          </div>
         </div>
-        <div class="meta__infos">
-          <span v-for="(metaValue, metaKey) of shownMetasObj" :key="metaKey"
-            >{{ metaKey }} = {{ metaValue }}<br
-          /></span>
-        </div>
-      </div>
-      <svg
-        ref="svgWrapper"
-        class="svg-tree"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-      <DeprelDialog :sentenceBus="sentenceBus" />
-      <UposDialog :sentenceBus="sentenceBus" />
-      <ShowConll
-        :reactiveSentence="reactiveSentence"
-        :sentenceBus="sentenceBus"
-      />
-      <v-style ref="stylee"> </v-style>
-    </template>
-    <template v-else>
-      <svg
-        ref="svgWrapper"
-        class="svg-tree"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-    </template>
+        <svg
+          ref="svgWrapper"
+          class="svg-tree"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        <DeprelDialog :sentenceBus="sentenceBus" />
+        <UposDialog :sentenceBus="sentenceBus" />
+        <ShowConll
+          :reactiveSentence="reactiveSentence"
+          :sentenceBus="sentenceBus"
+        />
+        <v-style ref="stylee"> </v-style>
+      </template>
+      <template v-else>
+        <svg
+          ref="svgWrapper"
+          class="svg-tree"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -87,7 +89,7 @@ export default {
     const svgWrapper = this.$refs.svgWrapper;
     // add the component to the list of reactiveSentence observers
     this.reactiveSentence.attach(this);
-    this.reactiveSentence.fromSentenceConll(this.conll)
+    this.reactiveSentence.fromSentenceConll(this.conll);
 
     const sentenceSVGOptions = defaultSentenceSVGOptions();
     const shownFeatures = this.processFeaturesInput(this.shownFeatures);
@@ -186,14 +188,16 @@ export default {
 * {
   box-sizing: border-box;
 }
-
+.scroll-wrapper {
+  overflow-x: auto;
+}
 .component-wrapper {
-  padding-left: 20px;
+  /* padding-left: 20px; */
   width: fit-content;
 }
 
 .svg-tree {
-  margin-left: -20px;
+  /* margin-left: -20px; */
 }
 
 .meta {
