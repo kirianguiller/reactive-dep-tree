@@ -5,6 +5,7 @@ Interactive dependency trees in the browser !
 ## Description
 Reactive-dep-tree is an html component made in Vuejs that allow to easily show interactive dependency trees on any html pages.
 
+
 ## How to implement in 2 steps
 
 ### 1 - Source the CDN repo
@@ -44,3 +45,6 @@ Source representation of the tree. Must be a proper conll format.
 If true, allow any user to modify locally on his browser the dependency tree. It can allow users to do quick edit and then export the tree as PNG, SVG or conll format.
 
 
+
+## Source
+Thanks to Kim Gerdes and his work on [Arborator-Draft](https://github.com/Arborator/arborator-draft) that was used heavily in this library (conll handling, svg drawing (with snap-svg)). Also thanks to the Arborator-Grew software that also was influential for the realisation of this repo.
