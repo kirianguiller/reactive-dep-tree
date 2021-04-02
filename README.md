@@ -44,7 +44,12 @@ Source representation of the tree. Must be a proper conll format.
 ### interactive
 If true, allow any user to modify locally on his browser the dependency tree. It can allow users to do quick edit and then export the tree as PNG, SVG or conll format.
 
+### Demo
+If you want to see these trees in action, you can go to the [SUD Dependency guidelines](https://surfacesyntacticud.github.io/) and start interacting with the exposed trees. 
 
+SUD is an annotation scheme for syntactic dependency treebanks, and has a nearly perfect degree of two-way convertibility with the Universal Dependencies scheme (UD). Contrary to UD, it is based on syntactic criteria (favoring functional heads) and the relations are defined on distributional and functional bases.
+
+This website is a guideline on how to annotate in SUD for some specific languages
 
 ## Source
 Thanks to Kim Gerdes and his work on [Arborator-Draft](https://github.com/Arborator/arborator-draft) that was used heavily in this library (conll handling, svg drawing (with snap-svg)). Also thanks to the Arborator-Grew software that also was influential for the realisation of this repo.
