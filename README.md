@@ -5,6 +5,11 @@ Interactive dependency trees in the browser !
 ## Description
 Reactive-dep-tree is an html component made in Vuejs that allow to easily show interactive dependency trees on any html pages.
 
+## Who need that ?
+Linguist, NLP researcher/engineer and computer scientist who want to show dependency tree in the browser. 
+It is currently being used in :
+- [Arborator-Grew](https://arboratorgrew.elizia.net/#/) : A web-app for online collaborative dependency parsing.
+- [Surface Syntactic SUD](https://surfacesyntacticud.github.io) : A guideline on Surface Syntactic Universal Dependencies (SUD). Just check the website and try to interact with the dependency trees to have a live demo :D.
 
 ## How to implement in 2 steps
 
@@ -51,5 +56,14 @@ SUD is an annotation scheme for syntactic dependency treebanks, and has a nearly
 
 This website is a guideline on how to annotate in SUD for some specific languages
 
+## Updates history
+### 0.3.0
+- Support for group token
+```tsv
+1-2 it's  _ _ _ _ _ _ _ _
+1 it  _ _ _ _ _ _ _ _
+2 's  _ _ _ _ _ _ _ _
+```
+
 ## Source
-Thanks to Kim Gerdes and his work on [Arborator-Draft](https://github.com/Arborator/arborator-draft) that was used heavily in this library (conll handling, svg drawing (with snap-svg)). Also thanks to the Arborator-Grew software that also was influential for the realisation of this repo.
+Thanks to Kim Gerdes and his work on [Arborator-Draft](https://github.com/Arborator/arborator-draft) that was used heavily in this library (conll handling, svg drawing (with snap-svg)). Also thanks to the Arborator-Grew team and software that was influential for the realization of this repo.
