@@ -131,8 +131,8 @@ export class ReactiveSentence implements IOriginator, ISubject {
   }
 
   public updateToken(tokenJson: TokenJson): void {
-    const tokenId = tokenJson.ID;
-    Object.assign(this.state.treeJson[tokenId], tokenJson);
+    tokenJson.ID = tokenJson.ID.toString()
+    Object.assign(this.state.treeJson[tokenJson.ID], tokenJson);
     console.log("Subject: my token changed :", tokenJson);
     this.notify();
   }

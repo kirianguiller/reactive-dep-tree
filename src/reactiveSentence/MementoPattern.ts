@@ -1,4 +1,4 @@
-import { SentenceJson } from "@/localConllup/conll";
+import { SentenceJson } from "conllup/lib/conll";
 
 export interface IOriginator {
   save(): IMemento;

@@ -20,7 +20,7 @@
   "dependencies": {
     "@innologica/vue-dropdown-menu": "^0.1.4",
     "@types/snapsvg": "^0.5.0",
-    "conllup": "^1.0.10",
+    "conllup": "^1.1.0",
     "core-js": "^3.10.0",
     "snapsvg": "^0.5.1",
     "snapsvg-cjs": "0.0.6",

@@ -25,5 +25,5 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": ["node_modules", "src/main.*", "**/conllup-js/**"]
+  "exclude": ["node_modules", "src/main.*"]
 }
