@@ -121,9 +121,11 @@ export class SentenceSVG extends EventDispatcher {
     // for (const [tokenIndex, tokenJson] of Object.entries(this.treeJson)) {
 
     for (const tokenJsonIndex in this.treeJson) {
-      const tokenJson = this.treeJson[tokenJsonIndex]
-      if (tokenJson.isGroup === true) { continue }
-      const tokenSvgIndex = parseInt(tokenJson.ID, 10)
+      const tokenJson = this.treeJson[tokenJsonIndex];
+      if (tokenJson.isGroup === true) {
+        continue;
+      }
+      const tokenSvgIndex = parseInt(tokenJson.ID, 10);
 
       const tokenSVG = new TokenSVG(tokenJson, this);
       this.tokenSVGs[tokenSvgIndex] = tokenSVG;
@@ -149,18 +151,25 @@ export class SentenceSVG extends EventDispatcher {
 
     // array of all heads, TODO : improve
     const headsIdArray = [-1].concat(
-      Object.values(this.treeJson).filter(tokenJson => { return tokenJson.isGroup === false }).map(tokenJson => { return tokenJson.HEAD }
-        // const head = parseInt(x["HEAD"]);
-        // const head = x["HEAD"];
-        // if (head || head === 0) {
-        // return head;
-        // } else {
-        // return -1;
-        // }
-      )
+      Object.values(this.treeJson)
+        .filter(tokenJson => {
+          return tokenJson.isGroup === false;
+        })
+        .map(
+          tokenJson => {
+            return tokenJson.HEAD;
+          }
+          // const head = parseInt(x["HEAD"]);
+          // const head = x["HEAD"];
+          // if (head || head === 0) {
+          // return head;
+          // } else {
+          // return -1;
+          // }
+        )
     );
     this.levelsArray = Array.apply(null, Array(headsIdArray.length)).map(
-      function () {
+      function() {
         return -1;
       }
     );
