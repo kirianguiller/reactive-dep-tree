@@ -109,7 +109,14 @@ export class SentenceSVG extends EventDispatcher {
   }
 
   plugDiffTree(teacherReactiveSentence: ReactiveSentence): void {
-    this.teacherTreeJson = teacherReactiveSentence?.state.treeJson;
+    this.teacherTreeJson = teacherReactiveSentence?.state?.treeJson;
+    if (this.teacherTreeJson) {
+      // TODO : find a way to attach the otherReactiveSentence so it listen to teacher's changes
+      // the line below is not working properly as it makes the otherReactiveSentence to update off screen
+      // and this make svg drawing not working
+      // teacherReactiveSentence.attach(this)
+      this.showDiffs(this.teacherTreeJson);
+    }
   }
 
   populateTokenSVGs(): void {
@@ -169,7 +176,7 @@ export class SentenceSVG extends EventDispatcher {
         )
     );
     this.levelsArray = Array.apply(null, Array(headsIdArray.length)).map(
-      function() {
+      function () {
         return -1;
       }
     );
