@@ -89,9 +89,9 @@ npm run serve
 - For being able to use TS and to compile the code as a JS library, I "had" to create a main.js and a main.ts . main.*s are usually the entry points in vue projects, but only one is should be necessary. In our case, we need the two of them, but I'm sure we could succeed to keep only main.ts (if somehow we succeed to compile the code in a common.js directly from main.ts)
 
 ### TODO
-- [] implement right-to-left logic (for languages such as Hebrew, Arabic, ...)
-- [] write a better documentation (add information about passable parameters in the <reactive-dep-tree> component)
-- [] add the possibility to pass the conll in a <conll> tag (for now, it is only passable as an attribute and force to add escaping characters if a quote is in the string of the conll)
-- [] start implementing test
-- [] export the core logic (reactiveSentence folder) in an external library, so it could be imported in this vue wrapper AND in arborator-grew (and in other wrapper, side libraries)
+- [ ] implement right-to-left logic (for languages such as Hebrew, Arabic, ...)
+- [ ] write a better documentation (add information about passable parameters in the <reactive-dep-tree> component)
+- [ ] add the possibility to pass the conll in a <conll> tag (for now, it is only passable as an attribute and force to add escaping characters if a quote is in the string of the conll)
+- [ ] start implementing test
+- [ ] export the core logic (reactiveSentence folder) in an external library, so it could be imported in this vue wrapper AND in arborator-grew (and in other wrapper, side libraries)
 
