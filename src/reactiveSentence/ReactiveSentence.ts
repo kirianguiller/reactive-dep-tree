@@ -190,6 +190,21 @@ export class ReactiveSentence implements IOriginator, ISubject {
     }
     return allFeaturesSet;
   }
+
+  public exportConllWithModifiedMeta(newMetaJson: MetaJson): string {
+    for (const [metaName, metaValue] of Object.entries(this.state.metaJson)) {
+      if (!Object.keys(newMetaJson).includes(metaName)) {
+        newMetaJson[metaName] = metaValue;
+      }
+    }
+
+    const sentenceJsonToExport: SentenceJson = {
+      treeJson: this.state.treeJson,
+      metaJson: newMetaJson,
+    };
+
+    return sentenceJsonToConll(sentenceJsonToExport);
+  }
 }
 
 export class SentenceCaretaker implements ICaretaker {
