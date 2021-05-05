@@ -1,5 +1,3 @@
-import { SentenceJson } from "conllup/lib/conll";
-
 export interface IOriginator {
   save(): IMemento;
 

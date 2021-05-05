@@ -6,7 +6,7 @@ import {
   TreeJson,
   TokenJson,
   FeatureJson,
-  MetaJson,
+  MetaJson
 } from "conllup/lib/conll";
 
 import { IOriginator, IMemento, ICaretaker } from "./MementoPattern";
@@ -194,7 +194,7 @@ export class ReactiveSentence implements IOriginator, ISubject {
 
     const sentenceJsonToExport: SentenceJson = {
       treeJson: this.state.treeJson,
-      metaJson: newMetaJson,
+      metaJson: newMetaJson
     };
 
     return sentenceJsonToConll(sentenceJsonToExport);
@@ -203,7 +203,7 @@ export class ReactiveSentence implements IOriginator, ISubject {
 
 export class SentenceCaretaker implements ICaretaker {
   private mementos: IMemento[] = [];
-  private currentStateIndex: number = -1; 
+  private currentStateIndex = -1;
   private originator: IOriginator;
 
   constructor(originator: IOriginator) {
@@ -211,42 +211,42 @@ export class SentenceCaretaker implements ICaretaker {
   }
 
   public backup(): void {
-    this.mementos = this.mementos.slice(0, this.currentStateIndex + 1)
+    this.mementos = this.mementos.slice(0, this.currentStateIndex + 1);
     this.mementos.push(this.originator.save());
-    this.currentStateIndex ++;
+    this.currentStateIndex++;
   }
 
   public canUndo(): boolean {
-    return this.currentStateIndex !== 0
+    return this.currentStateIndex !== 0;
   }
 
   public canRedo(): boolean {
-    return this.currentStateIndex + 1 !== this.mementos.length
+    return this.currentStateIndex + 1 !== this.mementos.length;
   }
-
 
   public undo(): void {
     if (!this.canUndo()) {
-      console.log("caretaker: the caretaker mementos was empty")
+      console.log("caretaker: the caretaker mementos was empty");
       return;
     }
-    this.currentStateIndex --;
+    this.currentStateIndex--;
     const memento = this.mementos[this.currentStateIndex];
     if (memento) {
       this.originator.restore(memento);
-
     }
   }
 
   public redo(): void {
-    if (!this.canRedo() ) {
-      console.log("caretaker: can't redo, you are already at the end of your mementos")
-      return
+    if (!this.canRedo()) {
+      console.log(
+        "caretaker: can't redo, you are already at the end of your mementos"
+      );
+      return;
     }
-    this.currentStateIndex ++;
-    const memento = this.mementos[this.currentStateIndex]
+    this.currentStateIndex++;
+    const memento = this.mementos[this.currentStateIndex];
     if (memento) {
-      this.originator.restore(memento)
+      this.originator.restore(memento);
     }
   }
 

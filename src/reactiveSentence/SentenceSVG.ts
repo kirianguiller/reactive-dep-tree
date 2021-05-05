@@ -176,7 +176,7 @@ export class SentenceSVG extends EventDispatcher {
         )
     );
     this.levelsArray = Array.apply(null, Array(headsIdArray.length)).map(
-      function () {
+      function() {
         return -1;
       }
     );
