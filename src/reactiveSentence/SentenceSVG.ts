@@ -119,14 +119,21 @@ export class SentenceSVG extends EventDispatcher {
     }
   }
 
+  // TODO RTL : add getOrderOfTokens()
+  // The idea is to get the order of tokens visualized (from left to right). 
+  // For instance, for a sentence of 6 tokens all in hebrew (all rtl), we should return [6,5,4,3,2,1]
+  // Be careful to not return grouped tokens
+  // getOrderOfTokens(): number[] {
+  //   return [1,2,3,9,8,7,6]
+  // }
+
   populateTokenSVGs(): void {
     let runningX = 0;
     const maxLevelY = Math.max(...this.levelsArray, 2); // 2 would be the minimum possible level size
     const offsetY =
       SVG_CONFIG.startTextY + maxLevelY * SVG_CONFIG.depLevelHeight;
 
-    // for (const [tokenIndex, tokenJson] of Object.entries(this.treeJson)) {
-
+    // TODO RTL : add iterating through new  getOrderOfTokens() 
     for (const tokenJsonIndex in this.treeJson) {
       const tokenJson = this.treeJson[tokenJsonIndex];
       if (tokenJson.isGroup === true) {
@@ -176,7 +183,7 @@ export class SentenceSVG extends EventDispatcher {
         )
     );
     this.levelsArray = Array.apply(null, Array(headsIdArray.length)).map(
-      function() {
+      function () {
         return -1;
       }
     );
