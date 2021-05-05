@@ -114,6 +114,7 @@ export default {
     // this.reactiveSentence.fromSentenceConll(this.conll);
 
     this.sentenceCaretaker = new SentenceCaretaker(this.reactiveSentence);
+    this.sentenceCaretaker.backup();
 
     this.sentenceSVG.addEventListener("svg-click", e => {
       this.sentenceBus.$emit("reset:allDialog");
@@ -152,8 +153,8 @@ export default {
       }
     });
     this.sentenceBus.$on("update:token", token => {
-      this.sentenceCaretaker.backup();
       this.reactiveSentence.updateToken(token);
+      this.sentenceCaretaker.backup();
     });
   },
   computed: {
