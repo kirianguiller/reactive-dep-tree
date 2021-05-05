@@ -11,7 +11,7 @@ export interface IOriginator {
  * as creation date or name. However, it doesn't expose the Originator's state.
  */
 export interface IMemento {
-  getState(): SentenceJson;
+  getState(): string;
 
   getName(): string;
 

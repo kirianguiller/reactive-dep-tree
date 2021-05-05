@@ -16,11 +16,11 @@ import { ISubject, IObserver } from "./ObserverPattern";
  * state.
  */
 export class SentenceMemento implements IMemento {
-  private state: SentenceJson;
+  private state: string;
 
   private date: string;
 
-  constructor(state: SentenceJson) {
+  constructor(state: string) {
     this.state = state;
     this.date = new Date()
       .toISOString()
@@ -31,7 +31,7 @@ export class SentenceMemento implements IMemento {
   /**
    * The Originator uses this method when restoring its state.
    */
-  public getState(): SentenceJson {
+  public getState(): string {
     return this.state;
   }
 
@@ -104,15 +104,14 @@ export class ReactiveSentence implements IOriginator, ISubject {
    * Originator implementation
    */
   public save(): IMemento {
-    return new SentenceMemento(JSON.parse(JSON.stringify(this.state)));
+    return new SentenceMemento(JSON.stringify(this.state));
   }
 
   /**
    * Restores the Originator's state from a memento object.
    */
   public restore(memento: IMemento): void {
-    this.state = memento.getState();
-    console.log(`Originator: My state has changed to`, this.state);
+    this.state = JSON.parse(memento.getState());
     this.notify();
   }
 
