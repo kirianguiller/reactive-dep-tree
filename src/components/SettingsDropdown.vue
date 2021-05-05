@@ -55,8 +55,7 @@
 
       <template v-if="interactive">
         <span class="dropdown__item" @click="undo">Undo</span>
-        <!-- TODO : implement redo logic -->
-        <!-- <span class="dropdown__item">Redo</span> -->
+        <span class="dropdown__item" @click="redo">Redo</span>
       </template>
       <span class="dropdown__item" @click="aboutArborator"
         >About Arborator</span
@@ -91,6 +90,9 @@ export default {
     },
     undo() {
       this.sentenceCaretaker.undo();
+    },
+    redo() {
+      this.sentenceCaretaker.redo();
     },
     getSVGblob() {
       const svgText = this.$parent.$refs.svgWrapper.outerHTML;
