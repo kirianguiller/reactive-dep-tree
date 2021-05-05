@@ -5,7 +5,8 @@ import {
   SentenceJson,
   TreeJson,
   TokenJson,
-  FeatureJson
+  FeatureJson,
+  MetaJson,
 } from "conllup/lib/conll";
 
 import { IOriginator, IMemento, ICaretaker } from "./MementoPattern";
@@ -94,7 +95,6 @@ export class ReactiveSentence implements IOriginator, ISubject {
    * Trigger an update in each subscriber.
    */
   public notify(): void {
-    console.log("Subject: Notifying observers...");
     for (const observer of this.observers) {
       observer.update(this);
     }
@@ -122,23 +122,18 @@ export class ReactiveSentence implements IOriginator, ISubject {
    * happen (or after it).
    */
   public fromSentenceConll(sentenceConll: string): void {
-    console.log("\nSubject: I'm doing something important.");
     this.state = sentenceConllToJson(sentenceConll);
-
-    console.log(`Subject: My state has just changed to: ${this.state}`);
     this.notify();
   }
 
   public updateToken(tokenJson: TokenJson): void {
     tokenJson.ID = tokenJson.ID.toString();
     Object.assign(this.state.treeJson[tokenJson.ID], tokenJson);
-    console.log("Subject: my token changed :", tokenJson);
     this.notify();
   }
 
   public updateTree(treeJson: TreeJson): void {
     this.state.treeJson = JSON.parse(JSON.stringify(treeJson));
-    console.log("Subject: my tree changed :", treeJson);
     this.notify();
   }
 
@@ -208,7 +203,7 @@ export class ReactiveSentence implements IOriginator, ISubject {
 
 export class SentenceCaretaker implements ICaretaker {
   private mementos: IMemento[] = [];
-
+  private currentStateIndex: number = -1; 
   private originator: IOriginator;
 
   constructor(originator: IOriginator) {
@@ -216,23 +211,46 @@ export class SentenceCaretaker implements ICaretaker {
   }
 
   public backup(): void {
-    console.log("\nCaretaker: Saving Originator's state...");
+    this.mementos = this.mementos.slice(0, this.currentStateIndex + 1)
     this.mementos.push(this.originator.save());
+    this.currentStateIndex ++;
   }
 
+  public canUndo(): boolean {
+    return this.currentStateIndex !== 0
+  }
+
+  public canRedo(): boolean {
+    return this.currentStateIndex + 1 !== this.mementos.length
+  }
+
+
   public undo(): void {
-    if (!this.mementos.length) {
+    if (!this.canUndo()) {
+      console.log("caretaker: the caretaker mementos was empty")
       return;
     }
-    const memento = this.mementos.pop();
+    this.currentStateIndex --;
+    const memento = this.mementos[this.currentStateIndex];
     if (memento) {
-      console.log(`Caretaker: Restoring state to: ${memento.getName()}`);
       this.originator.restore(memento);
+
+    }
+  }
+
+  public redo(): void {
+    if (!this.canRedo() ) {
+      console.log("caretaker: can't redo, you are already at the end of your mementos")
+      return
+    }
+    this.currentStateIndex ++;
+    const memento = this.mementos[this.currentStateIndex]
+    if (memento) {
+      this.originator.restore(memento)
     }
   }
 
   public showHistory(): void {
-    console.log("Caretaker: Here's the list of mementos:");
     for (const memento of this.mementos) {
       console.log(memento.getName(), memento.getState());
     }
