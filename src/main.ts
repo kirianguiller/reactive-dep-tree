@@ -8,7 +8,7 @@ Vue.use(vueCustomElement);
 import ReactiveDepTree from "./ReactiveDepTree.vue";
 
 Vue.component("v-style", {
-  render: function (createElement) {
+  render: function(createElement) {
     return createElement("style", this.$slots.default);
   }
 });

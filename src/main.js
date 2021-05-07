@@ -25,5 +25,5 @@ Vue.customElement("reactive-dep-tree", ReactiveDepTree, {
       root.shadowRoot = document.head;
     }
     return root;
-  },
+  }
 });
