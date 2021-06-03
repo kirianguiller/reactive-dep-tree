@@ -235,12 +235,10 @@ export default {
 .FORM {
   font: 18px "DejaVu Sans";
   fill: black;
-  /* 	font-family:sans-serif; */
-  --wordDistance: 55;
-  fill: black;
   text-align: center;
   position: relative;
   z-index: 99;
+  --wordDistance: 55;
 }
 
 .interactive {
