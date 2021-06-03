@@ -48,12 +48,10 @@ import Vue from "vue";
 
 import {
   ReactiveSentence,
-  SentenceCaretaker
-} from "./reactiveSentence/ReactiveSentence.ts";
-import {
+  SentenceCaretaker,
   SentenceSVG,
   defaultSentenceSVGOptions
-} from "./reactiveSentence/SentenceSVG";
+} from "dependencytreejs/lib";
 import DeprelDialog from "./components/DeprelDialog.vue";
 import UposDialog from "./components/UposDialog.vue";
 import SettingsDropdown from "./components/SettingsDropdown.vue";
