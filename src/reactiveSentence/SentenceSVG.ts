@@ -89,6 +89,7 @@ export class SentenceSVG extends EventDispatcher {
     this.populateTokenSVGs();
     this.drawRelations();
     this.adaptSvgCanvas();
+    this.showhighlights();
 
     if (this.options.interactive) {
       this.snapSentence.addClass("interactive");
@@ -183,7 +184,7 @@ export class SentenceSVG extends EventDispatcher {
         )
     );
     this.levelsArray = Array.apply(null, Array(headsIdArray.length)).map(
-      function() {
+      function () {
         return -1;
       }
     );
@@ -273,6 +274,12 @@ export class SentenceSVG extends EventDispatcher {
     }
     this.snapSentence.attr({ width: this.totalWidth + 15 });
     this.snapSentence.attr({ height: this.totalHeight || 1000 }); // 1000 was there in case the SVG pop up after the div, so it give a heigth
+  }
+
+  showhighlights() {
+    for (const tokenSVG of Object.values(this.tokenSVGs)) {
+      tokenSVG.showhighlight();
+    }
   }
 
   attachEvents() {
@@ -519,6 +526,12 @@ class TokenSVG {
     this.snapElements["DEPREL"] = snapDeprel;
     this.snapElements["arrowhead"] = snapArrowhead;
     this.snapElements["arc"] = snapArc;
+  }
+
+  showhighlight(): void {
+    if (this.tokenJson.MISC.highlight) {
+      this.snapElements["FORM"].node.style.fill = this.tokenJson.MISC.highlight
+    }
   }
 
   attachEvent(): void {
