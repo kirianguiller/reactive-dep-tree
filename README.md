@@ -18,7 +18,7 @@ It is currently being used in :
 
 ### 1 - Source the CDN repo
 
-Add the link to the CDN library in the head of any HTML file. You can replace `reactive-dep-tree` by `reactive-dep-tree@x.y.z` (for exemple `reactive-dep-tree@0.4.1`) if you want to import a specific version instead of the latest.
+Add the link to the CDN library in the head of any HTML file. You can replace `unpkg.com/reactive-dep-tree/dist` by `unpkg.com/reactive-dep-tree@x.y.z/dist` (for exemple `unpkg.com/reactive-dep-tree@0.4.1/dist`) if you want to import a specific version instead of the latest.
 
 ```html
 <script
