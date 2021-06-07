@@ -57,8 +57,8 @@
         <span class="dropdown__item" @click="undo">Undo</span>
         <span class="dropdown__item" @click="redo">Redo</span>
       </template>
-      <span class="dropdown__item" @click="aboutArborator"
-        >About Arborator</span
+      <span class="dropdown__item" @click="aboutReactiveDepTree"
+        >About ReactiveDepTree</span
       >
     </div>
   </dropdown-menu>
@@ -134,7 +134,7 @@ export default {
       link.click();
       URL.revokeObjectURL(link.href);
     },
-    aboutArborator() {
+    aboutReactiveDepTree() {
       window.open(
         "https://github.com/kirianguiller/reactive-dep-tree",
         "_blank"
