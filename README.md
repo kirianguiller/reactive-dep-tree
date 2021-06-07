@@ -22,7 +22,7 @@ Add the link to the CDN library in the head of any HTML file
 
 ```html
 <script
-  src="https://unpkg.com/reactive-dep-tree@0.4.0/dist/reactive-dep-tree.umd.js"
+  src="https://unpkg.com/reactive-dep-tree/dist/reactive-dep-tree.umd.js"
   async
   deferred
 ></script>
