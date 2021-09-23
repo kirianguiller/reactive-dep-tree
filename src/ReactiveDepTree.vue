@@ -162,6 +162,7 @@ export default {
   },
   methods: {
     update(reactiveSentence) {
+      // this method is called whenever the reactiveSentence instance changes and call the 'update()' method of all his observers
       this.sentenceText = reactiveSentence.getSentenceText();
       this.shownMetasObj = {};
       for (const shownMeta of this.shownMetasList) {

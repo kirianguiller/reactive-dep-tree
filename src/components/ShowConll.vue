@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     update(reactiveSentence) {
+      // this method is called whenever the reactiveSentence instance changes and call the 'update()' method of all his observers
       this.sentenceConll = reactiveSentence.exportConll();
     }
   }
