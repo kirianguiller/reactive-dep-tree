@@ -159,4 +159,4 @@ npm run serve
 - [ ] write a better documentation (add information about passable parameters in the <reactive-dep-tree> component)
 - [ ] add the possibility to pass the conll in a <conll> tag (for now, it is only passable as an attribute and force to add escaping characters if a quote is in the string of the conll)
 - [ ] start implementing test
-- [ ] export the core logic (reactiveSentence folder) in an external library, so it could be imported in this vue wrapper AND in arborator-grew (and in other wrapper, side libraries, etc ...)
+- [x] export the core logic (reactiveSentence folder) in an external library, so it could be imported in this vue wrapper AND in arborator-grew (and in other wrapper, side libraries, etc ...)

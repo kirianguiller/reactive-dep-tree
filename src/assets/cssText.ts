@@ -1,159 +1,147 @@
-export const cssText = `.FORM {
-  /* 	font: 18px DejaVu Sans; */
-  /* 	fill: black; */
-  /* 	font-family:sans-serif; */
-  --wordDistance: 55;
-  fill: black;
-  text-align: center;
-  position: relative;
-  z-index: 99;
-}
+const sharedStyleSheet = `
+  .interactive > .FORM,
+  .interactive > .LEMMA,
+  .interactive > .UPOS,
+  .interactive > .DEPREL {
+    cursor: pointer;
+  }
+  
+  .FORM {
+    font-size: 16px;
+    z-index: 99;
+  }
+  
+  .LEMMA {
+    font-size: 13px;
+    font-style: italic;
+  }
+  
+  .UPOS, .XPOS {
+    font: 11px DejaVu Sans;
+  }
+  
+  .XPOS {
+      font-style: italic;
+  }
+  
+  
+  .DEPREL {
+    font: 12px Arial;
+    font-family: sans-serif;
+    z-index: 99;
+  }
+  
+  .FEATS, .MISC {
+    font-size: 10px;
+  }
+  
+  .glossy {
+    font-style: italic;
+  }
+  
+  .arrowhead {
+    stroke-width: 0.8;
+  }
+  
+  .curve {
+    stroke-width: 1.1;
+    fill: none;
+    z-index: 0;
+  }
+  
+  .dragcurve {
+    stroke-width: 2;
+    fill: none;
+  }
+  
+  .arrowhead, .curve, .dragcurve {
+      stroke: black;
+      pointer-events: none;
+    }
+    `;
 
-.interactive > .FORM,
-.interactive > .LEMMA,
-.interactive > .UPOS,
-.interactive > .DEPREL {
-  cursor: pointer;
-}
+export const lightStylesheet =
+  sharedStyleSheet +
+  `
+    .FORM, .LEMMA {
+      fill: black;
+    }
 
-.dark .FORM {
-  /* 	font: 18px DejaVu Sans; */
-  /* 	fill: black; */
-  /* 	font-family:sans-serif; */
-  --wordDistance: 55;
-  fill: rgb(255, 255, 255);
-  text-align: center;
-  position: relative;
-  z-index: 99;
-}
+    .UPOS, .DEPREL {
+      fill: #4a0984;;
+    }
 
-.LEMMA {
-  font: 15px DejaVu Sans;
-  fill: black;
-  font-family: sans-serif;
-  text-align: center;
-  /* cursor: pointer; */
-  font-style: italic;
-  --wordDistance: 22;
-}
+    .FEATS, .MISC, .XPOS {
+      fill: #b352ac;
+    }
 
-.dark .LEMMA {
-  font: 15px DejaVu Sans;
-  fill: rgb(238, 232, 232);
-  font-family: sans-serif;
-  text-align: center;
-  font-style: italic;
-  --wordDistance: 22;
-}
+    .UPOS.diff,
+    .DEPREL.diff {
+      fill: red;
+    }
 
-.MISC-Gloss {
-  font: 15px DejaVu Sans;
-  fill: rgb(124, 96, 86);
-  font-family: sans-serif;
-  text-align: center;
-  font-style: italic;
-  --wordDistance: 11;
-}
+    .arrowhead {
+      fill: white;
+    }
 
-.UPOS {
-  font: 11px DejaVu Sans;
-  fill: rgb(80, 29, 125);
-  /* cursor: pointer; */
-  text-align: center;
-  --wordDistance: 22;
-}
+    .arrowhead, .curve {
+      stroke: black;
+    }
 
-.UPOSselected {
-  font: 11px DejaVu Sans;
-  fill: #dd137bff;
-  font-weight: bold;
-  text-align: center;
-}
+    .arrowhead.diff, .curve.diff {
+      stroke: red;
+    }
 
-.DEPREL {
-  font: 12px Arial;
-  fill: #501d7d;
-  font-style: oblique;
-  font-family: sans-serif;
-  /* cursor: pointer; */
-  position: relative;
-  z-index: 99;
-  --funcCurveDist: 3; /* distance between the function name and the curves highest point */
-}
+    .dragcurve, .dragarrowhead {
+      stroke: #ffb424;
+    }
 
-.dark .DEPREL {
-  font: 12px Arial;
-  fill: #aab3ff;
-  font-style: oblique;
-  font-family: sans-serif;
-  /* cursor: pointer; */
-  z-index: 99;
-  --funcCurveDist: 3; /* distance between the function name and the curves highest point */
-}
+    .glossy {
+      fill: #ffb424;
+    }
+ `;
 
-.glossy {
-  font: 15px DejaVu Sans;
-  fill: coral;
-  font-family: sans-serif;
-  text-align: center;
-  font-style: italic;
-  --wordDistance: 11;
-}
+export const darkStylesheet =
+  sharedStyleSheet +
+  `
+      .FORM, .LEMMA {
+      fill: #e6e2e2;
+    }
 
-.xdeprel {
-  fill: #21ba45;
-  z-index: 99;
-}
+    .UPOS, .DEPREL {
+      fill: #ea6ff4;
+    }
 
-.xdep {
-  stroke: #21ba45;
-  fill: none;
-}
+    .FEATS, .MISC, .XPOS {
+      fill: #a47da3;
+    }
 
-.DEPRELselected {
-  fill: #dd137b;
-  z-index: 99;
-  /* font-weight: bold; */
-}
+    .FORM.diff, .UPOS.diff, .DEPREL.diff {
+      fill: #ff2020;
+    }
 
-.arrowhead {
-  fill: white;
-  stroke: black;
-  stroke-width: 0.8;
-}
+    .arrowhead {
+      fill: black;
+    }
 
-.curve {
-  stroke: black;
-  stroke-width: 1;
-  fill: none;
-  position: relative;
-  z-index: 0;
-  --startOffset: 8;
-  --tokDepDist: 15; /* distance between tokens and depdendency relation */
-  --depMinHeight: 15; /* minimum height for dependency */
-  --wordDistanceFactor: -1; /* distant words get higher curves. this factor fixes how much higher */
-}
+    .arrowhead, .curve {
+      stroke: #e6e2e2;
+    }
 
-.dark .curve {
-  stroke: rgb(248, 244, 244);
-  stroke-width: 1;
-  fill: none;
-  --startOffset: 8;
-  --tokDepDist: 15; /* distance between tokens and depdendency relation */
-  --depMinHeight: 15; /* minimum height for dependency */
-  --wordDistanceFactor: -1; /* distant words get higher curves. this factor fixes how much higher */
-}
+    .arrowhead.diff, .curve.diff {
+      stroke: #ff2020;
+    }
 
-.dragcurve {
-  stroke: #dd137bff;
-  stroke-width: 1.5;
-  fill: none;
-}
-.draggov {
-  fill: #dd137bff;
-  text-align: center;
-}
+    .dragarrowhead, .dragcurve {
+      stroke: #ffb424;
+    }
 
+    .glossy {
+      fill: #ffb424;
+    }
+        `;
+
+export const cssText = `
 .conll {
   display: none; /*toggles to inline*/
   unicode-bidi: embed;
@@ -208,38 +196,7 @@ export const cssText = `.FORM {
   text-align: center;
 }
 
-/* logo animation transitions */
-.arboratorlogo {
-  transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
-}
-
-.arboratorlogo:hover {
-  transform: scale(1.1);
-  transition: all 0.2s ease-in-out;
-  -webkit-transition: all 0.2s ease-in-out;
-  opacity: 0.9;
-}
-
 .svgbox {
   overflow-x: auto;
-}
-
-.curve.diff,
-.arrowhead.diff {
-  stroke: red;
-  stroke-width: 1;
-  fill: none;
-  position: relative;
-}
-
-.UPOS.diff,
-.DEPREL.diff {
-  fill: red;
-}
-
-.FEATS, .MISC {
-  font-size: 10px;
-  fill: #6d346d;
 }
 `;

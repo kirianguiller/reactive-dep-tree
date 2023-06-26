@@ -1,6 +1,8 @@
 import Vue from "vue";
 import vueCustomElement from "vue-custom-element";
 
+import { lightStylesheet } from "./assets/cssText";
+
 Vue.config.productionTip = false;
 
 Vue.use(vueCustomElement);
@@ -16,6 +18,7 @@ Vue.config.ignoredElements = ["reactive-dep-tree"];
 Vue.customElement("reactive-dep-tree", ReactiveDepTree, {
   // Additional Options: https://github.com/karol-f/vue-custom-element#options
   shadow: true,
+  shadowCss: lightStylesheet,
   beforeCreateVueInstance(root) {
     const rootNode = root.el.getRootNode();
 
