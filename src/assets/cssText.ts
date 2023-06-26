@@ -142,61 +142,7 @@ export const darkStylesheet =
         `;
 
 export const cssText = `
-.conll {
-  display: none; /*toggles to inline*/
-  unicode-bidi: embed;
-  font-family: monospace;
-  white-space: pre;
-  margin-bottom: 0.6em;
-  border-bottom: 1px solid #aaa;
-  padding: 0.5em 0 0.17em 0;
-  tab-size: 12;
-  background-color: #fff;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
-.sentencebox {
-  margin-bottom: 0.6em;
-  border-bottom: 1px solid #aaa;
-  padding: 0.5em 0 0.17em 0;
-  margin-top: 1em;
-}
-
-/* Button */
-.button {
-  display: inline-block;
-  position: relative;
-  width: 120px;
-  height: 32px;
-  line-height: 32px;
-  border-radius: 2px;
-  font-size: 0.9em;
-  background-color: #fff;
-  color: #646464;
-  cursor: pointer;
-}
-
-.button > paper-ripple {
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.button.raised {
-  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0.2s;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
-.button.raised:active {
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
-  transition-delay: 0s;
-}
-
-.center {
-  text-align: center;
-}
-
-.svgbox {
-  overflow-x: auto;
+.svg-tree {
+  background-color: white;
 }
 `;

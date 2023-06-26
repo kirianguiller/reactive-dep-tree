@@ -66,7 +66,7 @@
 
 <script>
 import DropdownMenu from "@innologica/vue-dropdown-menu";
-import { cssText } from "../assets/cssText";
+import { cssText, lightStylesheet } from "../assets/cssText";
 export default {
   components: { DropdownMenu },
   props: [
@@ -99,7 +99,7 @@ export default {
 
       const exportedSvg = svgText.replace(
         "<defs></defs>",
-        `<style>${cssText}</style><defs></defs>`
+        `<style>${cssText}${lightStylesheet}</style><defs></defs>`
       );
       const blob = new Blob([exportedSvg], { type: "image/svg+xml" });
       return blob;
