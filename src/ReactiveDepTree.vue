@@ -10,6 +10,7 @@
               :sentenceCaretaker="sentenceCaretaker"
               :interactive="interactive"
               :reactiveSentence="reactiveSentence"
+              :sentenceSVG="sentenceSVG"
             />
             <span class="meta__text">{{ sentenceText }}</span>
           </div>

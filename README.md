@@ -115,7 +115,8 @@ SUD is an annotation scheme for syntactic dependency treebanks, and has a nearly
 This website is a guideline on how to annotate in SUD for some specific languages
 
 ## Updates history
-
+### 0.5.3
+- update ReactiveDepTree dependency to 2.3.1 (from 2.2.5)
 ### 0.3.0
 
 - Support for group token

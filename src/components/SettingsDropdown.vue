@@ -67,13 +67,17 @@
 <script>
 import DropdownMenu from "@innologica/vue-dropdown-menu";
 import { cssText, lightStylesheet } from "../assets/cssText";
+
+import { exportPNG, exportSVG } from "dependencytreejs/lib";
+
 export default {
   components: { DropdownMenu },
   props: [
     "sentenceBus",
     "sentenceCaretaker",
     "interactive",
-    "reactiveSentence"
+    "reactiveSentence",
+    "sentenceSVG"
   ],
   data() {
     return {
@@ -105,34 +109,16 @@ export default {
       return blob;
     },
     exportPNG() {
-      const svgImage = document.createElement("img");
-      document.body.appendChild(svgImage);
-      const blob = this.getSVGblob();
-      const DOMURL = window.URL || window.webkitURL || window;
-      const url = DOMURL.createObjectURL(blob);
-      svgImage.onload = () => {
-        const canvas = document.createElement("canvas");
-        canvas.width = svgImage.clientWidth;
-        canvas.height = svgImage.clientHeight;
-        const canvasCtx = canvas.getContext("2d");
-        canvasCtx.drawImage(svgImage, 0, 0);
-        const imgData = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.href = imgData;
-        link.download = this.reactiveSentence.getUndescoredText() + ".png";
-        link.click();
-        document.body.removeChild(svgImage);
-      };
-      svgImage.src = url;
+      exportPNG(
+        this.sentenceSVG,
+        `${this.reactiveSentence.getUndescoredText()}.png`
+      );
     },
     exportSVG() {
-      const blob = this.getSVGblob();
-
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = this.reactiveSentence.getUndescoredText() + ".svg";
-      link.click();
-      URL.revokeObjectURL(link.href);
+      exportSVG(
+        this.sentenceSVG,
+        `${this.reactiveSentence.getUndescoredText()}.svg`
+      );
     },
     aboutReactiveDepTree() {
       window.open(

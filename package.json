@@ -1,6 +1,6 @@
 {
   "name": "reactive-dep-tree",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "main": "dist/reactive-dep-tree.common.js",
   "files": [
     "dist/"
@@ -20,7 +20,7 @@
   "dependencies": {
     "@innologica/vue-dropdown-menu": "^0.1.4",
     "@types/snapsvg": "^0.5.0",
-    "dependencytreejs": "^2.2.5",
+    "dependencytreejs": "^2.3.1",
     "core-js": "^3.10.0",
     "snapsvg": "^0.5.1",
     "snapsvg-cjs": "0.0.6",
