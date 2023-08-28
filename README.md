@@ -103,8 +103,25 @@ ID  FORM  LEMMA UPOS XPOS FEATS HEAD  DEPREL  DEPS MISC
 
 If you want to hide the AlignBegin misc, you need to pass MISC.AlignBegin to **hidden-features** parameter.
 
+#### Size representation of the trees
 
+If for cosmetic reason, you need to change the size of the trees, you can set the ****arc-height**** and **token-spacing** to respectively modify the width and the height of the trees (bigger numbers means bigger dimensions).
+Default are `arc-height="40"` and `token-spacing="28"`
 
+Here an exemple where both `arc-height` and `token-spacing` were set higher than the default values
+```html
+<reactive-dep-tree
+  arc-height="50"
+  token-spacing="40"
+  conll="# text = I am eating a pineapple
+    1	I	_	PRON	_	_	2	suj	_	_
+    2	am	be	AUX	_	_	0	root	_	_
+    3	eating	eat	VERB	_	_	2	aux	_	highlight=red
+    4	a	_	DET	_	_	5	det	_	_
+    5	pineapple	_	NOUN	_	_	3	obj	_	_
+"
+></reactive-dep-tree>
+```
 
 ### Demo
 
@@ -115,6 +132,8 @@ SUD is an annotation scheme for syntactic dependency treebanks, and has a nearly
 This website is a guideline on how to annotate in SUD for some specific languages
 
 ## Updates history
+### 0.6.0
+- add: customizable height (arcHeight) and width (tokenSpacing) in svg tree
 ### 0.5.3
 - update ReactiveDepTree dependency to 2.3.1 (from 2.2.5)
 ### 0.3.0

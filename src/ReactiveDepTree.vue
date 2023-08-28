@@ -71,6 +71,14 @@ export default {
     minimal: {
       type: Boolean,
       default: false
+    },
+    arcHeight: {
+      type: Number,
+      default: 40
+    },
+    tokenSpacing: {
+      type: Number,
+      default: 28
     }
   },
   data() {
@@ -105,6 +113,9 @@ export default {
       x => !hiddenFeatures.includes(x)
     );
     sentenceSVGOptions.interactive = this.interactive;
+
+    sentenceSVGOptions.tokenSpacing = this.tokenSpacing;
+    sentenceSVGOptions.arcHeight = this.arcHeight;
 
     this.sentenceSVG = new SentenceSVG(
       svgWrapper,

@@ -1,6 +1,6 @@
 {
   "name": "reactive-dep-tree",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "main": "dist/reactive-dep-tree.common.js",
   "files": [
     "dist/"
