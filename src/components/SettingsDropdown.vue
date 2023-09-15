@@ -66,9 +66,9 @@
 
 <script>
 import DropdownMenu from "@innologica/vue-dropdown-menu";
-import { cssText, lightStylesheet } from "../assets/cssText";
+import { cssText } from "../assets/cssText";
 
-import { exportPNG, exportSVG } from "dependencytreejs/lib";
+import { exportPNG, exportSVG, lightStylesheet } from "dependencytreejs/lib";
 
 export default {
   components: { DropdownMenu },

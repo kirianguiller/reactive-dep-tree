@@ -19,16 +19,18 @@
     <!-- shown-features="UPOS,LEMMA,FEATS.Case,FEATS.Mood,MISC.SpaceAfter,FEATS.Number,FEATS.Person,FEATS.PronType,FEATS.Tense" -->
     <reactive-dep-tree
     hidden-features="XPOS,LEMMA"
+    interactive="true"
     shown-metas="text_fr"
     conll="# sent_id = email-enronsent19_01-0071
         # text = I'm happy about SUD.
         # text_fr = Je suis content de SUD.
-        # rtl = yes
+        # rtl = no
         1	I	I	PRON	PRP	Case=Nom|Number=Sing|Person=1|PronType=Prs	2	subj	_	SpaceAfter=No
+        1.1	secret	_	_	_	_	_	_	_	_
         2	'm	be	AUX	VBP	Mood=Ind|Tense=Pres|VerbForm=Fin	0	root	_	_
         3	happy	happy	ADJ	JJ	Degree=Pos	2	comp:pred	_	highlight=red
         4	about	about	ADP	IN	_	3	mod	_	highlight=#FFF342
-        5	SUD	SUD	PROPN	DT	Number=Sing	4	comp:obj	_	SpaceAfter=No
+        5	SUD	SUD	PROPN	DT	Number=Sing	4	comp:obj	1:mod	SpaceAfter=No
         6	.	.	PUNCT	.	_	2	punct	_	_
 "
     ></reactive-dep-tree>
@@ -67,6 +69,7 @@
       interactive="true"
       conll="# text = I am eating a pineapple
     1	I	_	PRON	_	_	2	suj	_	_
+    1.1	hidden	_	PRON	_	_	2	suj	_	_
     2	am	_	AUX	_	_	0	root	_	_
     3	eating	_	VERB	_	_	2	aux	_	highlight=red
     4	a	_	DET	_	_	5	det	_	_

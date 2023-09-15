@@ -132,6 +132,8 @@ SUD is an annotation scheme for syntactic dependency treebanks, and has a nearly
 This website is a guideline on how to annotate in SUD for some specific languages
 
 ## Updates history
+### 1.0.0
+- add: support of Enhanced Conll (empty nodes and multiple DEPS) via upgrading to DependencyTreeJS 2.4.3
 ### 0.6.0
 - add: customizable height (arcHeight) and width (tokenSpacing) in svg tree
 ### 0.5.3
