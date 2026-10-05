@@ -76,6 +76,10 @@ export default {
       type: Number,
       default: 40
     },
+    arcStemHeight: {
+      type: Number,
+      default: 6
+    },
     tokenSpacing: {
       type: Number,
       default: 28
@@ -116,6 +120,7 @@ export default {
 
     sentenceSVGOptions.tokenSpacing = this.tokenSpacing;
     sentenceSVGOptions.arcHeight = this.arcHeight;
+    sentenceSVGOptions.arcStemHeight = this.arcStemHeight;
 
     this.sentenceSVG = new SentenceSVG(
       svgWrapper,

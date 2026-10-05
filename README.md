@@ -108,6 +108,8 @@ If you want to hide the AlignBegin misc, you need to pass MISC.AlignBegin to **h
 If for cosmetic reason, you need to change the size of the trees, you can set the ****arc-height**** and **token-spacing** to respectively modify the width and the height of the trees (bigger numbers means bigger dimensions).
 Default are `arc-height="40"` and `token-spacing="28"`
 
+The arcs end with a short vertical segment on which the arrowhead sits. Its length can be set with **arc-stem-height** (default `arc-stem-height="6"`; `arc-stem-height="0"` draws the arcs without this segment).
+
 Here an exemple where both `arc-height` and `token-spacing` were set higher than the default values
 ```html
 <reactive-dep-tree
